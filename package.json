@@ -1,0 +1,22 @@
+{
+  "name": "Brogramming",
+  "version": "0.0.0",
+  "description": "Facebook Global Hackathon 2014 Project by University of Waterloo",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andyzg/Brogramming.git"
+  },
+  "author": "andyzg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andyzg/Brogramming/issues"
+  },
+  "homepage": "https://github.com/andyzg/Brogramming",
+  "dependencies": {
+    "express": "^4.10.2"
+  }
+}
