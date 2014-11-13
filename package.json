@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/andyzg/Brogramming",
   "dependencies": {
-    "express": "^4.10.2"
+    "express": "^4.10.2",
+    "jade": "^1.7.0"
   }
 }
