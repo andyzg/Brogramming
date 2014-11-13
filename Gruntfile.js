@@ -8,14 +8,14 @@ module.exports = function(grunt) {
       },
       dist: {
         // the files to concatenate
-        src: ['src/**/*.js'],
+        src: ['src/**/*.js' ],
         // the location of the resulting JS file
         dest: 'public/<%= pkg.name %>.js'
       }
     },
     jshint: {
       // define the files to lint
-      files: ['gruntfile.js', 'src/**/*.js'],
+      files: ['gruntfile.js', 'src/**/*.js', 'app.js' ],
       // configure JSHint (documented at http://www.jshint.com/docs/)
       options: {
           // more options here if you want to override JSHint defaults
