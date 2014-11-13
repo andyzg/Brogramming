@@ -29,4 +29,5 @@ app.get('/game', function(req, res) {
   res.render('game', { id: levelId });
 });
 
-app.listen(3000);
+app.listen(port);
+console.log("listening on port: " + port );
