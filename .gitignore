@@ -33,3 +33,5 @@ node_modules
 Session.vim
 .netrwhist
 *~
+
+.DS_Store
