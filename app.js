@@ -31,3 +31,5 @@ app.get('/game', function(req, res) {
 
 app.listen(port);
 console.log("listening on port: " + port );
+app.listen(3000);
+console.log('Express server listening on port ' + port);

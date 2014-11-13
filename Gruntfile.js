@@ -28,13 +28,17 @@ module.exports = function(grunt) {
     },
     watch: {
       files: ['<%= jshint.files %>'],
-      tasks: [ 'express:dev', 'jshint' ]
+      tasks: [ 'jshint', 'concat', 'express:dev' ]
     },
     express: {
       options: {},
       dev: {
         options: {
-          script: 'app.js'
+          script: 'app.js',
+          node_env: 'development',
+          port: 3000,
+          background: true,
+          debug: true
         }
       }
     }
@@ -45,6 +49,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-express-server');
 
-  grunt.registerTask('server', ['express:dev', 'watch', 'jshint' ]);
+  grunt.registerTask('build', ['jshint', 'concat', 'express:dev', 'watch' ]);
   grunt.registerTask('lint', ['jshint']);
+  grunt.registerTask('default', ['build']);
 };
