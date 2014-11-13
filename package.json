@@ -19,6 +19,7 @@
   "dependencies": {
     "express": "^4.10.2",
     "node-sass": "^1.2.2",
-    "jade": "^1.7.0"
+    "jade": "^1.7.0",
+    "hashlib": "~1.0.1"
   }
 }
