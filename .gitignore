@@ -35,3 +35,5 @@ Session.vim
 *~
 
 .DS_Store
+
+.idea/
