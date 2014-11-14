@@ -1,17 +1,19 @@
 {
-  "id": 1,
-  "title": "Learn the basics",
-  "difficulty": 2,
-  "width": 5,
-  "height": 5,
   "map": [
-    "1WW 2",
-    " XW  ",
-    "  X  ",
-    "    O",
-    "  O  "
-  ],
-  "description": "Welcome to Brogramming. In this first level, both you and your partner will need to move your character down 4 steps",
+  "1 B    W",
+  "W   B W ",
+  " W bb   ",
+  "  Wbb BB",
+  "B       ",
+  "  B WWWB" ],
+  "description": "This is level is fairly straight forward except for a slight patch of fog in th middle of the map.",
+  "title": "Medium Difficulty",
+  "height": 6,
+  "width": 8,
   "objects": [],
-  "goal": "TODO: give the coordinates to be checked for the level to be complete"
+  "id": 5,
+  "goal": {
+    "1": [3, 5],
+    "2": [2, 2]
+  }
 }
