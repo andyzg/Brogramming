@@ -157,10 +157,6 @@
 
   Controller.prototype.tick = function(result1, result2) {
     var controller = this.controller;
-    if (controller.player1.isOnGoal() && controller.player2.isOnGoal()) {
-      onWin(controller.levelId, controller.numTicks);
-      return;
-    }
     controller.numTicks++;
     setStatementCount(controller.numTicks);
     console.log(result1, result2);
@@ -170,6 +166,11 @@
       logResult(ex.toString(), '#console' + 0);
       logResult(ex.toString(), '#console' + 1);
       controller.stop();
+    }
+    if (controller.player1.isOnGoal() && controller.player2.isOnGoal()) {
+      controller.stop();
+      onWin(controller.levelId, controller.numTicks);
+      return;
     }
     controller.workerDfds = [Q.defer(), Q.defer()];
     Q.spread(_.map(controller.workerDfds, function(dfd) {
