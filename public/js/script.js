@@ -1,12 +1,12 @@
 $(document).ready(function() {
   console.log("Document has loaded");
   var id = getParameterByName("id");
-  var controller = new Controller(id);
+  var controller = new Controller(id, function() {
+    setTimeout(function() {
+      controller.render();
+    }, 500);
+  });
   window.controller = controller;
-  controller.onLoaded = function() {
-    // TODO: Do whatever is needed when the map is loaded
-    controller.render();
-  }
 });
 
 function animate() {

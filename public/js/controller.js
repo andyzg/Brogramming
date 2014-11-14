@@ -1,4 +1,4 @@
-var Controller = function(id) {
+var Controller = function(id, callback) {
   if (!id) {
     console.error("ERROR: No id given");
     return;
@@ -35,8 +35,8 @@ var Controller = function(id) {
     console.log(this.player2);
     console.log(this.switches);
 
-    // Make sure the Ajax call is done as well as loading the assets
-    this.onLoaded();
+    callback();
+
   }.bind(this));
 }
 
