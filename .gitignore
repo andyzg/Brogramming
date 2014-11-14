@@ -37,3 +37,5 @@ Session.vim
 .DS_Store
 
 .idea/
+
+public/js/build/.module-cache/

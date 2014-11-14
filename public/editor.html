@@ -15,14 +15,17 @@
   <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.1.0/firepad.css" />
   <script src="https://cdn.firebase.com/libs/firepad/1.1.0/firepad.min.js"></script>
 
+  <script src='js/underscore.js'></script>
   <script src="js/editor.js"></script>
 
   <link rel="stylesheet" type="text/css" href="css/editor.css">
 </head>
 
 <body>
-  <div id="firepad-container"></div>
+  <div id="pad0"></div>
+  <div id="pad1"></div>
   <button id="evaluate" type="button">Run</button>
-  <textarea id="console"></textarea>
+  <textarea id="console0" class="console" readonly></textarea>
+  <textarea id="console1" class="console" readonly></textarea>
 </body>
 </html>

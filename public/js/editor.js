@@ -1,31 +1,35 @@
 (function() {
 
   var commandsRef;
-  var firepad;
+  var firepads = [];
   var lastCommand;
+  var controller;
 
-  function init() {
+  function init(ctrl) {
+    controller = ctrl;
     // Initialize Firebase.
-    var firepadRef = getRandomRef();
-    // Create ACE
-    var editor = ace.edit("firepad-container");
-    editor.setTheme("ace/theme/textmate");
-    var session = editor.getSession();
-    session.setUseWrapMode(true);
-    session.setUseWorker(false);
-    session.setMode("ace/mode/javascript");
+    var refs = getRandomRef();
 
-    // Create Firepad.
-    firepad = Firepad.fromACE(firepadRef, editor, {
-      defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'
-    });
+    for (var i = 0; i < refs.length; i++) {
+      // Create ACE
+      var editor = ace.edit("pad" + i);
+      editor.setTheme("ace/theme/textmate");
+      var session = editor.getSession();
+      session.setUseWrapMode(true);
+      session.setUseWorker(false);
+      session.setMode("ace/mode/javascript");
 
-    commandsRef = firepadRef.child('commands');
+      // Create Firepad.
+      firepads.push(Firepad.fromACE(refs[i], editor, {
+        defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'
+      }));
+    }
+
+    commandsRef = refs[0].child('commands');
     commandsRef.on('child_added', onCommand);
 
     document.getElementById('evaluate').addEventListener('click', function () {
-      var code = firepad.getText();
-      evaluate(code);
+      run();
       lastCommand = Math.random();
       commandsRef.push({type: 'run', id: lastCommand});
     });
@@ -33,17 +37,24 @@
 
   // Helper to get hash from end of URL or generate a random one.
   function getRandomRef() {
-    var ref = new Firebase('https://brogramming.firebaseio.com');
-    var hash = window.location.hash.replace(/#/g, '');
-    if (hash) {
-      ref = ref.child(hash);
+    var delimiter = '+';
+    var baseRef = new Firebase('https://brogramming.firebaseio.com');
+    var hash = window.location.hash.replace(/#/, '');
+    var hashArray = hash.split('+');
+
+    var ref1, ref2;
+    if (hashArray.length === 2) {
+      ref1 = baseRef.child(hashArray.length - 2);
+      ref2 = baseRef.child(hashArray.length - 1);
     } else {
-      ref = ref.push(); // generate unique location.
-      window.location = window.location + '#' + ref.key(); // add it as a hash to the URL.
+      ref1 = baseRef.push();
+      ref2 = baseRef.push();
+      window.location = window.location + '#' + ref1.key() + delimiter + ref2.key(); 
     }
     if (typeof console !== 'undefined')
-      console.log('Firebase data: ', ref.toString());
-    return ref;
+      console.log('Firebase data: ', ref1.toString());
+      console.log('Firebase data: ', ref2.toString());
+    return [ref1, ref2];
   }
 
   function onCommand(command, prevCommandName) {
@@ -54,38 +65,20 @@
     var commandType = command.child('type').val();
 
     if (commandType === 'run') {
-      var code = firepad.getText();
-      evaluate(code);
+      run();
     } else if (commandType === 'stop') {
-
+      controller.stop();
     }
-  }
+  };
 
-  function evaluate(code) {
-    //var sandbox = document.getElementById('sandbox');
-    //sandbox.contentWindow.postMessage(code, '*');
-    var worker = new Worker('js/userCodeWorker.js');
-    worker.addEventListener("message", function(e) {
-      if (e.data.type === 'log') {
-        logResult(e.data.value);
-      } else if (e.data.type === 'action') {
-        if (!e.data.value.done) {
-          logResult(e.data.value.value);
-          setTimeout(function() {
-            worker.postMessage({type: 'next'});
-          }, 1000);
-        }
-      }
+  function run() {
+    var code = _.map(firepads, function(pad) {
+      return pad.getText();
     });
-    worker.postMessage({type: 'begin', value: code});
-    worker.postMessage({type: 'next'});
+
+    controller.run(code, logResult);
   }
 
-  function logResult(message) {
-    var console = document.getElementById('console');
-    console.value += message + '\n';
-  }
-
-  window.onload = init; // TODO change
+  window.initEditor = init;
 
 })();
