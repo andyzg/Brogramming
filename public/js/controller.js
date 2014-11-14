@@ -39,6 +39,8 @@
       this.player2.removeSelf();
     }
 
+    this.hasInitialized = false;
+
     this.player1 = obj.players["1"];
     this.player2 = obj.players["2"];
 
