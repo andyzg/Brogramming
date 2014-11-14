@@ -185,10 +185,10 @@ a:focus {
     height: 100px;
     margin-top: 0px;
     padding: 34px 20px;
-    border: 5px solid #398439;
+    border: 5px solid #000;#398439;
     border-radius: 60px;
     font-size: 20px;
-    color: #398439;
+    color: #000;/*#398439;*/
     background: 0 0;
     -webkit-transition: background .3s ease-in-out;
     -moz-transition: background .3s ease-in-out;
