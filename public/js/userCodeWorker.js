@@ -27422,12 +27422,22 @@ var log = '';
 var iterator;
 
 console.log = function(message) {
-  log += message + '\n';
-}
+  postMessage({type: 'log', value: message});
+};
+
+setIterator = function(it) {
+  iterator = it;
+};
+
+preprocess = function(code) {
+  code = 'setIterator((function*() {' + code + '})());'
+  return new traceur.Compiler().compile(code);
+};
 
 onmessage = function(event) {
-
-  eval(new traceur.Compiler().compile(event.data));
-
-  postMessage(log);
+  if (event.data.type === 'begin') {
+    eval(preprocess(event.data.value));
+  } else if (event.data.type === 'next') {
+    postMessage({type: 'next', value: iterator.next() });
+  }
 }

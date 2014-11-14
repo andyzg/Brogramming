@@ -49,14 +49,23 @@
     //sandbox.contentWindow.postMessage(code, '*');
     var worker = new Worker('js/userCodeWorker.js');
     worker.addEventListener("message", function(e) {
-      logResult(e.data);
+      console.log(e);
+      if (e.data.type === 'log') {
+        logResult(e.data.value);
+      } else if (e.data.type === 'next') {
+        if (!e.data.value.done) {
+          logResult(e.data.value.value);
+          worker.postMessage({type: 'next'});
+        }
+      }
     });
-    worker.postMessage(code);
+    worker.postMessage({type: 'begin', value: code});
+    worker.postMessage({type: 'next'});
   }
 
   function logResult(message) {
     var console = document.getElementById('console');
-    console.value += message;
+    console.value += message + '\n';
   }
 
   window.onload = init; // TODO change
