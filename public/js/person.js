@@ -46,10 +46,10 @@ Player.prototype.at = function(row, col) {
 
 Player.prototype.getLocationValue = function(location) {
   if (location === undefined) {
-    location = {x: this.col, y: this.row};
+    location = {col: this.col, row: this.row};
   }
-  return this.map[location.x][location.y] ?
-    this.map[location.x][location.y].getElement() : null;
+  return this.map[location.row][location.col] ?
+    this.map[location.row][location.col].getElement() : null;
 };
 
 Player.prototype.turnLeft = function() {
@@ -76,28 +76,29 @@ Player.prototype.resetLocation = function() {
 };
 
 Player.prototype.getCoordinateForward = function() {
-  var x = this.col;
-  var y = this.row;
+  var col = this.col;
+  var row = this.row;
   switch (this.direction) {
     case Direction.TOP:
-      return {x: x, y: y - 1};
+      return {col: col, row: row - 1};
     case Direction.RIGHT:
-      return {x: x + 1, y: y};
+      return {col: col + 1, row: row};
     case Direction.BOTTOM:
-      return {x: x, y: y + 1};
+      return {col: col, row: row + 1};
     case Direction.LEFT:
-      return {x: x - 1, y: y};
+      return {col: col - 1, row: row};
     default:
       throw('wtf?');
   }
 };
 
 Player.prototype.isValidLocation = function(location) {
-  if (location.x < 0 || location.x >= this.map.length || location.y < 0
-    || location.y >= this.map[0].length) {
+  if (location.row < 0 || location.row >= this.map.length || location.col < 0
+    || location.col >= this.map[0].length) {
     return false;
   }
   var locationType = this.getLocationValue(location);
+  console.log(location, locationType);
   return locationType == Tile.PATH || locationType == Tile.SWITCH;
 };
 
@@ -113,10 +114,10 @@ Player.prototype.moveForward = function() {
     throw 'Cannot move forward';
   }
 
-  this.col = location.x;
-  this.row = location.y;
-  this.xPos = location.x * this.size;
-  this.yPos = location.y * this.size;
+  this.col = location.col;
+  this.row = location.row;
+  this.xPos = location.col * this.size;
+  this.yPos = location.row * this.size;
   this.counter = this.size;
 
   this.anim[this.direction].play();

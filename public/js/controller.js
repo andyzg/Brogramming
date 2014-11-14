@@ -148,13 +148,13 @@
   };
 
   Controller.prototype.isBlocked = function(player) {
-    return 'stub';
+    return !player.isValidLocation(player.getCoordinateForward());
   }
 
   Controller.prototype.getConditionals = function(playerId) {
     var player = playerId == 0 ? this.player1 : this.player2;
     return {
-      isBlocked: this.isBlocked()
+      isBlocked: this.isBlocked(player)
     };
   };
 
