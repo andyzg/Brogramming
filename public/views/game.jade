@@ -2,6 +2,12 @@ doctype html
 html(lang="en")
   head
     title= pageTitle
+    script(src='https://cdn.firebase.com/js/client/2.0.2/firebase.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/mode-javascript.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/theme-textmate.js')
+    script(src='https://cdn.firebase.com/libs/firepad/1.1.0/firepad.min.js')
+    script(src='js/underscore.js')
     script(src='lib/pixi.dev.js')
     script(src='lib/jquery.min.js')
     script(src='js/constants.js')
@@ -13,17 +19,14 @@ html(lang="en")
     script(src='js/map.js')
     script(src='js/renderer.js')
     script(src='js/controller.js')
+    script(src='js/editor.js')
     script(src='js/script.js')
+    link(rel='stylesheet', href='https://cdn.firebase.com/libs/firepad/1.1.0/firepad.css')
+    link(rel='stylesheet', type='text/css', href='css/editor.css')
   body
-    h1 Jade - node template engine
     div#map
-    #container.col
-      if youAreUsingJade
-        p You are amazing
-      else
-        p Get on it!
-      p.
-        Jade is a terse and simple
-        templating language with a
-        strong focus on performance
-        and powerful features.
+    div#pad0
+    div#pad1
+    button#evaluate(type='button') Run
+    textarea#console0.console(readonly)
+    textarea#console1.console(readonly)
