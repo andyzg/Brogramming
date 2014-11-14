@@ -41,7 +41,6 @@
     this.goal = data.goal;
 
     var obj = parseMap(data.map);
-
     this.map = new Map(obj.map, data.width, data.height);
     this.switches = obj.switches;
     this.flags = obj.flags;
@@ -86,7 +85,6 @@
     this.renderer.render();
   };
 
-  console.log("Heeey");
   Controller.prototype.animate = function() {
     this.renderer.animate(this.player1, this.player2);
   };
@@ -127,6 +125,8 @@
   Controller.prototype.run = function(code) {
     this.stop();
     this.reset(this.data);
+    this.numTicks = 0;
+    setStatementCount(0);
     var controller = this;
     this.workerDfds = [Q.defer(), Q.defer()];
     this.workers = _.map(code, function(item, i) {
@@ -157,6 +157,9 @@
 
   Controller.prototype.tick = function(result1, result2) {
     var controller = this.controller;
+    controller.numTicks++;
+    setStatementCount(controller.numTicks);
+    console.log(result1, result2);
     try {
       controller.performActions(controller.functions[result1], controller.functions[result2]);
     } catch (ex) {
@@ -202,10 +205,21 @@
 
   function setSpinner(visible) {
     $('#executing').css('visibility', visible ? 'visible' : 'hidden');
+    $('#statementCount').css('visibility', visible ? 'visible' : 'hidden');
+  }
+
+  function setStatementCount(count) {
+    $('#statementCount').text(count);
   }
 
   function logResult(message, id) {
     $(id).val($(id).val() + message + '\n');
+  }
+
+  function onWin(levelId, statementCount) {
+    $('#winModal').modal();
+    $('#winModalBody').text('You successfully completed level ' + levelId
+      + ' using ' + (statementCount || 0) + ' moves!');
   }
 
   window.Controller = Controller;

@@ -94,8 +94,15 @@ div.buttons .right {
 
 div.buttons .spinner {
   visibility: hidden;
-  margin-top: 15px;
+  margin-top: 16px;
   margin-right: 25px;
+}
+
+div.buttons div#statementCount {
+  visibility: hidden;
+  margin-top: 14px;
+  margin-right: 25px;
+  width: auto;
 }
 
 div#right {
@@ -176,4 +183,8 @@ html[xmlns] .clearfix {
 
 * html .clearfix {
     height: 1%;
+}
+
+.modal-backdrop {
+  z-index: -1;
 }
