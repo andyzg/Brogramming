@@ -45,8 +45,13 @@
   }
 
   function evaluate(code) {
-    var sandbox = document.getElementById('sandbox');
-    sandbox.contentWindow.postMessage(code, '*');
+    //var sandbox = document.getElementById('sandbox');
+    //sandbox.contentWindow.postMessage(code, '*');
+    var worker = new Worker('js/userCodeWorker.js');
+    worker.addEventListener("message", function(e) {
+      logResult(e.data);
+    });
+    worker.postMessage(code);
   }
 
   function logResult(message) {
@@ -55,13 +60,5 @@
   }
 
   window.onload = init; // TODO change
-  // Listen for messages from sandbox
-  window.addEventListener('message', function(e) {
-    var sandbox = document.getElementById('sandbox');
-    if (e.source === sandbox.contentWindow) {
-      logResult(e.data);
-    }
-  });
-
 
 })();
