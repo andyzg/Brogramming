@@ -10,20 +10,22 @@ var Renderer = function(dom, width, height) {
   this.playerAnimations = loadPlayerAnimations();
   this.switchTexture = loadSwitchImages();
   this.tileImages = loadTileImages();
+  this.flagImages = loadFlagImages();
+  this.fogImage = loadFogImage();
 
   // Define constants
   this.tileSize = 64;
   dom.appendChild(this.renderer.view);
 }
 
-Renderer.prototype.initialRender = function(map) {
+Renderer.prototype.initialRender = function(map, fogs, flags) {
   map.renderTiles(this.tileContainer, this.tileImages, this.tileSize);
   this.renderer.render(this.stage);
 }
 
 Renderer.prototype.initializeTiles = function(map) {
   console.log("Initializing tiles");
-  map.initializeTiles(this.tileContainer, this.tileImages);
+  map.initializeTiles(this.tileContainer, this.tileImages, this.tileSize);
 }
 
 
@@ -34,14 +36,25 @@ Renderer.prototype.initializeSwitches = function(switches) {
   }
 }
 
-Renderer.prototype.render = function(player1, player2, switches, test) {
-  if (test) {
-    switches[0].setState(this.stage, true);
+Renderer.prototype.initializeFlags = function(flags) {
+  console.log("Initializing flags");
+  for (var i in flags) {
+    if (flags.hasOwnProperty(i)) {
+      flags[i].initSprite(this.stage, this.flagImages[i], this.tileSize);
+    } else {
+      console.log("ERROR: Invalid key");
+    }
   }
-  for (var i = 0; i < switches.length; i++) {
-    switches[i].render();
-  }
+}
 
+Renderer.prototype.initializeFogs = function(fogs) {
+  console.log("Initializing fogs");
+  for (var i = 0; i < fogs.length; i++) {
+    fogs[i].initSprite(this.stage, this.fogImage, this.tileSize);
+  }
+}
+
+Renderer.prototype.render = function() {
   this.renderer.render(this.stage);
 }
 
@@ -65,10 +78,21 @@ Renderer.prototype.animate = function(player1, player2) {
   this.renderer.render(this.stage);
 }
 
+function loadFogImage() {
+  return PIXI.Texture.fromImage("/img/fog.png");
+}
+
 function loadSwitchImages() {
   var assets = {};
   assets[SwitchValue.ON] = PIXI.Texture.fromImage("/img/switch/on-no-background.png");
   assets[SwitchValue.OFF] = PIXI.Texture.fromImage("/img/switch/off-no-background.png");
+  return assets;
+}
+
+function loadFlagImages() {
+  var assets = {};
+  assets[Tile.PLAYER_ONE] = PIXI.Texture.fromImage("/img/flags/red_flag.png");
+  assets[Tile.PLAYER_TWO] = PIXI.Texture.fromImage("/img/flags/blue_flag.png");
   return assets;
 }
 

@@ -5,9 +5,11 @@ var Block = function(elem, row, col) {
   this.sprite = null;
 };
 
-Block.prototype.initSprite = function(container, images) {
+Block.prototype.initSprite = function(container, images, size) {
   var texture = images[this.elem];
   this.sprite = new PIXI.Sprite(texture);
+  this.sprite.position.x = this.col * size;
+  this.sprite.position.y = this.row * size;
   container.addChild(this.sprite);
 };
 
@@ -16,8 +18,6 @@ Block.prototype.render = function(size) {
     console.log("ERROR: Sprite hasn't been initialized yet");
     return;
   }
-  this.sprite.position.x = this.col * size;
-  this.sprite.position.y = this.row * size;
 };
 
 Block.prototype.getElement = function() {

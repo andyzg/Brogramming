@@ -10,6 +10,7 @@
   "title": "Medium Difficulty",
   "height": 6,
   "width": 8,
+  "difficulty": 2,
   "objects": [],
   "id": 5,
   "goal": {

@@ -66,7 +66,7 @@ div#left div.cd-tabs-content li.selected {
 }
 
 div#left div.cd-tabs-content li textarea {
-  background-color: #002b36;
+  background-color: #272822;
   color: #fdf6e3;
   cursor: default;
   font-family: FreeMono, monospace;
@@ -99,7 +99,7 @@ div.buttons .spinner {
 }
 
 div#right {
-  background-color: #232C31;
+  background-color: #272822;
   display: block;
   float: right;
   margin: 0 auto 0 auto;
@@ -109,7 +109,7 @@ div#right {
 
 div#right div#mapContainer {
   padding: 0;
-  background-color: #232C31;
+  background-color: #272822;
 }
 
 div#right div#map {
@@ -139,7 +139,8 @@ div#right div#description {
 }
 
 div#right div#description div.textWrapper {
-  background-color: #FFF;
+  background-color: #272822;
+  color: #fff;
   display: block;
   height: 270px;
   margin: 0 auto 50px auto;

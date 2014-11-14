@@ -24,13 +24,13 @@ Map.prototype.renderTiles = function(container, sprites, size) {
   }
 }
 
-Map.prototype.initializeTiles = function(container, images) {
+Map.prototype.initializeTiles = function(container, images, size) {
   var map = this.map;
   for (var x = 0; x < map.length; x++) {
     for (var y = 0; y < map[x].length; y++) {
       var block = map[x][y];
       console.log("Initializing tiles");
-      block.initSprite(container, images);
+      block.initSprite(container, images, size);
     }
   }
 }
