@@ -183,3 +183,7 @@ html[xmlns] .clearfix {
 * html .clearfix {
     height: 1%;
 }
+
+.modal-backdrop {
+  z-index: -1;
+}

@@ -196,5 +196,11 @@
     $(id).val($(id).val() + message + '\n');
   }
 
+  function onWin(levelId, statementCount) {
+    $('#winModal').modal();
+    $('#winModalBody').text('You successfully completed level ' + levelId
+      + ' using ' + (statementCount || 0) + ' moves!');
+  }
+
   window.Controller = Controller;
 }) ();
