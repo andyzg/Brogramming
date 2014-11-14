@@ -12,3 +12,10 @@
 	width: 300px;
 	height: 180px;
 }
+
+.powered-by-firepad {
+	-webkit-transform: scale(0.5,0.5);
+    transform: scale(0.5,0.5);
+    bottom: 10px;
+    right: 0px;
+}
