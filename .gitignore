@@ -34,5 +34,6 @@ Session.vim
 .netrwhist
 *~
 
-.idea/
 .DS_Store
+
+.idea/

@@ -30,8 +30,16 @@ app.get('/game', function(req, res) {
   res.render('game', { id: levelId });
 });
 
-app.get('/map', function(req, res) {
+app.get('/map/:id', function(req, res) {
+  var id = req.params.id;
+  if (!id) {
+    console.error("ERROR: No id provided in request");
+    res.send(200);
+  }
+  var fileName = __dirname + "/public/levels/level_" + id + ".json";
+  console.log("File being requested is " + fileName);
+  res.sendFile(fileName);
 });
 
 app.listen(port);
-console.log('Express server listening on port ' + port);
+console.log("Listening on port: " + port );
