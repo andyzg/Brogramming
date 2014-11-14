@@ -107,7 +107,6 @@ Player.prototype.isValidLocation = function(location) {
  * The callback should be called every time unless
  */
 Player.prototype.moveForward = function() {
-  console.log("MOVING FORWARD");
   var location = this.getCoordinateForward();
   if (!this.isValidLocation(location)) {
     throw 'Cannot move forward';

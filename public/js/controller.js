@@ -126,7 +126,13 @@
   Controller.prototype.tick = function(result1, result2) {
     var controller = this.controller;
     console.log(result1, result2);
-    controller.performActions(controller.functions[result1], controller.functions[result2]);
+    try {
+      controller.performActions(controller.functions[result1], controller.functions[result2]);
+    } catch (ex) {
+      logResult(ex.toString(), '#console' + 0);
+      logResult(ex.toString(), '#console' + 1);
+      controller.stop();
+    }
     controller.workerDfds = [Q.defer(), Q.defer()];
     Q.spread(_.map(controller.workerDfds, function(dfd) {
       return dfd.promise;
