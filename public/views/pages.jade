@@ -2,10 +2,9 @@ doctype html
 html(lang="en")
   head
     title= pageTitle
-    script(type='text/javascript').
-      if (foo) {
-         bar(1 + 5)
-      }
+    link(rel='stylesheet', href='/css/pages.css')
+    script(src='/lib/react.js')
+    script(src='/js/pages.js')
   body
     h1 Jade - node template engine
     #container.col
