@@ -27423,7 +27423,8 @@ var iterator;
 var pauseOn = [
   'moveForward',
   'turnLeft',
-  'turnRight'
+  'turnRight',
+  'wait'
 ];
 var definedRegex = /([^\w]function)\s(\w+)\(/g;
 
@@ -27478,15 +27479,19 @@ preprocess = function(code) {
 };
 
 moveForward = function() {
-  return 'moveForward'
+  return 'moveForward';
 };
 
 turnLeft = function() {
-  return 'turnLeft'
+  return 'turnLeft';
 };
 
 turnRight = function() {
-  return 'turnRight'
+  return 'turnRight';
+};
+
+wait = function() {
+  return 'wait';
 };
 
 onmessage = function(event) {

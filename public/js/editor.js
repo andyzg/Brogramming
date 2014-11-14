@@ -73,14 +73,14 @@
     } else if (commandType === 'stop') {
       controller.stop();
     }
-  };
+  }
 
   function run() {
     var code = _.map(firepads, function(pad) {
       return pad.getText();
     });
 
-    controller.run(code, logResult);
+    controller.run(code);
   }
 
   window.initEditor = init;
