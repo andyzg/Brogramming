@@ -28,8 +28,10 @@ function parseMap(map) {
     }
   }
 
-  for (var i in players) {
-    players[i].setMap(arr);
+  for (var key in players) {
+    if (players.hasOwnProperty(key)) {
+      players[key].setMap(arr);
+    }
   }
 
   return {

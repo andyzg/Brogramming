@@ -7,11 +7,11 @@ var Player = function(id, row, col) {
 
   this.startState = 0;
   this.animationSpeed = 0.1;
-}
+};
 
 Player.prototype.setMap = function(map) {
   this.map = map;
-}
+};
 
 Player.prototype.initSprite = function(textures, size) {
   this.size = size;
@@ -22,7 +22,7 @@ Player.prototype.initSprite = function(textures, size) {
   this.textures = textures;
   this.sprite = new PIXI.Sprite(textures[this.direction]);
   // Sets the default direction as bottom
-}
+};
 
 Player.prototype.initAnimations = function(stage, animations) {
   this.anim = animations;
@@ -30,19 +30,19 @@ Player.prototype.initAnimations = function(stage, animations) {
   this.stage = stage;
   this.resetLocation();
   stage.addChild(this.anim[this.direction]);
-}
+};
 
 Player.prototype.resetState = function() {
   this.anim[this.direction].gotoAndStop(this.startState);
-}
+};
 
 Player.prototype.getID = function() {
   return this.id;
-}
+};
 
 Player.prototype.at = function(row, col) {
   return row == this.row && col == this.col;
-}
+};
 
 Player.prototype.getLocationValue = function(location) {
   if (location === undefined) {
@@ -50,7 +50,7 @@ Player.prototype.getLocationValue = function(location) {
   }
   return this.map[location.x][location.y] ?
     this.map[location.x][location.y].getElement() : null;
-}
+};
 
 Player.prototype.turnLeft = function() {
   this.stage.removeChild(this.anim[this.direction]);
@@ -59,7 +59,7 @@ Player.prototype.turnLeft = function() {
   this.stage.addChild(this.anim[this.direction]);
   this.resetLocation();
   return false;
-}
+};
 
 Player.prototype.turnRight = function() {
   this.stage.removeChild(this.anim[this.direction]);
@@ -68,12 +68,12 @@ Player.prototype.turnRight = function() {
   this.stage.addChild(this.anim[this.direction]);
   this.resetLocation();
   return false;
-}
+};
 
 Player.prototype.resetLocation = function() {
   this.anim[this.direction].position.x = this.col * this.size;
   this.anim[this.direction].position.y = this.row * this.size;
-}
+};
 
 Player.prototype.getCoordinateForward = function() {
   var x = this.col;
@@ -90,7 +90,7 @@ Player.prototype.getCoordinateForward = function() {
     default:
       throw('wtf?');
   }
-}
+};
 
 Player.prototype.isValidLocation = function(location) {
   if (location.x < 0 || location.x >= this.map.length || location.y < 0
@@ -99,7 +99,7 @@ Player.prototype.isValidLocation = function(location) {
   }
   var locationType = this.getLocationValue(location);
   return locationType == Tile.PATH || locationType == Tile.SWITCH;
-}
+};
 
 /**
  * Calling this function assumes that it's possible to walk forward
@@ -108,9 +108,8 @@ Player.prototype.isValidLocation = function(location) {
  */
 Player.prototype.moveForward = function() {
   console.log("MOVING FORWARD");
-  var location = getCoordinateForward();
-
-  if (!isValidLocation(location)) {
+  var location = this.getCoordinateForward();
+  if (!this.isValidLocation(location)) {
     throw 'Cannot move forward';
   }
 
@@ -124,7 +123,7 @@ Player.prototype.moveForward = function() {
   this.anim[this.direction].animationSpeed = this.animationSpeed;
   this.isAnimating = true;
   return this.animate;
-}
+};
 
 Player.prototype.animate = function() {
   if (!this.isAnimating) {
@@ -157,4 +156,4 @@ Player.prototype.animate = function() {
   } else {
     return true;
   }
-}
+};
