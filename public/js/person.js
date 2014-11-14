@@ -156,3 +156,9 @@ Player.prototype.animate = function() {
     return true;
   }
 };
+
+Player.prototype.removeSelf = function() {
+  if (this.stage) {
+    this.stage.removeChild(this.sprite);
+  }
+};
