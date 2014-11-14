@@ -18,5 +18,4 @@ Block.prototype.render = function(size) {
   }
   this.sprite.position.x = this.col * size;
   this.sprite.position.y = this.row * size;
-  console.log(this.sprite.position.y);
 }

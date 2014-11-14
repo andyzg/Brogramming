@@ -7,7 +7,8 @@ var Renderer = function(dom, width, height) {
   this.stage.addChild(this.tileContainer);
 
   // Define assets
-  this.playerImages = loadPlayerImages();
+  this.playerTexture = loadPlayerImages();
+  this.playerAnimations = loadPlayerAnimations();
   this.tileImages = loadTileImages();
 
   // Define constants
@@ -15,8 +16,7 @@ var Renderer = function(dom, width, height) {
   dom.appendChild(this.renderer.view);
 }
 
-Renderer.prototype.render = function(map) {
-  // TODO: Render every block in the map
+Renderer.prototype.initialRender = function(map) {
   map.renderTiles(this.tileContainer, this.tileImages, this.tileSize);
   this.renderer.render(this.stage);
 }
@@ -24,6 +24,27 @@ Renderer.prototype.render = function(map) {
 Renderer.prototype.initializeTiles = function(map) {
   console.log("Initializing tiles");
   map.initializeTiles(this.tileContainer, this.tileImages);
+}
+
+Renderer.prototype.render = function(player1, player2) {
+  player1.render(this.tileSize);
+  player2.render(this.tileSize);
+  this.renderer.render(this.stage);
+}
+
+Renderer.prototype.initializePlayer = function(player) {
+  switch (player.getID()) {
+    case "1":
+      player.initSprite(this.stage, this.playerTexture["1"]);
+      player.initAnimations(this.playerAnimations["1"]);
+      break;
+    case "2":
+      player.initSprite(this.stage, this.playerTexture["2"]);
+      player.initAnimations(this.playerAnimations["2"]);
+      break;
+    default:
+      console.log("ERROR: Unknown player name.");
+  }
 }
 
 function loadPlayerImages() {
@@ -38,7 +59,38 @@ function loadPlayerImages() {
   p2[Direction.RIGHT] = PIXI.Texture.fromImage("/img/sprite/red_right.png");
   p2[Direction.BOTTOM] = PIXI.Texture.fromImage("/img/sprite/red_bottom.png");
   p2[Direction.LEFT] = PIXI.Texture.fromImage("/img/sprite/red_left.png");
-  return [p1, p2];
+  return {
+    "1": p1,
+    "2": p2
+  };
+}
+
+function loadPlayerAnimations() {
+  var p1 = {};
+  var p2 = {};
+  p1[Direction.TOP] = getAnimation("blue", "up");
+  p1[Direction.RIGHT] = getAnimation("blue", "right");
+  p1[Direction.BOTTOM] = getAnimation("blue", "down");
+  p1[Direction.LEFT] = getAnimation("blue", "left");
+
+  p2[Direction.TOP] = getAnimation("red", "up");
+  p2[Direction.RIGHT] = getAnimation("red", "right");
+  p2[Direction.BOTTOM] = getAnimation("red", "down");
+  p2[Direction.LEFT] = getAnimation("red", "left");
+  return {
+    "1": p1,
+    "2": p2
+  };
+}
+
+function getAnimation(color, dir) {
+  var anim = [];
+  for (var i = 0; i < 4; i++) {
+    var path = "/img/animation/student_" + dir + "_" + color + i.toString() + ".png";
+    var frame = PIXI.Texture.fromImage(path);
+    anim.push(frame);
+  }
+  return new PIXI.MovieClip(anim);
 }
 
 function loadTileImages() {

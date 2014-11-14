@@ -7,8 +7,8 @@ var Tile = {
 };
 
 var Direction = {
-  TOP: "TOP",
-  RIGHT: "RIGHT",
-  BOTTOM: "BOTTOM",
-  LEFT: "LEFT"
-}
+  TOP: 0,
+  RIGHT: 1,
+  BOTTOM: 2,
+  LEFT: 3
+};

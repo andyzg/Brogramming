@@ -8,6 +8,8 @@ var Controller = function(id) {
 
   // The renderer renders everything in the #map div
   this.renderer = new Renderer(document.getElementById("map"));
+  this.hasInitialized = false;
+
   console.log("Just finished creating renderer");
   $.get(path, function(data) {
     console.log("Done ajax");
@@ -20,10 +22,14 @@ var Controller = function(id) {
     console.log("Done ajax request");
     var obj = parseMap(data.map);
     this.map = new Map(obj.map, data.width, data.height);
-    this.players = obj.players;
+    this.player1 = obj.players["1"];
+    this.player2 = obj.players["2"];
     this.renderer.initializeTiles(this.map);
+    this.renderer.initializePlayer(this.player1);
+    this.renderer.initializePlayer(this.player2);
     console.log(this.map);
-    console.log(this.players);
+    console.log(this.player1);
+    console.log(this.player2);
 
     // Make sure the Ajax call is done as well as loading the assets
     this.onLoaded();
@@ -34,5 +40,9 @@ var Controller = function(id) {
  * To be called by the main JS, script.js
  */
 Controller.prototype.render = function() {
-  this.renderer.render(this.map);
+  if (!this.hasInitialized) {
+    this.renderer.initialRender(this.map);
+    this.hasInitialized = true;
+  }
+  this.renderer.render(this.player1, this.player2);
 }

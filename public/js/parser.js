@@ -14,7 +14,7 @@ function parseMap(map) {
       var block = map[row][column];
       if (block == Tile.PLAYER_TWO || block == Tile.PLAYER_ONE) {
         arr[row][column] = new Block(Tile.PATH, row, column);
-        players[block] = new Person(block, row, column);
+        players[block] = new Player(block, row, column);
       } else {
         arr[row][column] = new Block(block, row, column);
       }
