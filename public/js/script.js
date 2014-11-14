@@ -4,6 +4,6 @@ $(document).ready(function() {
   var controller = new Controller(id);
   controller.onLoaded = function() {
     // TODO: Do whatever is needed when the map is loaded
-    console.log("Hello");
+    controller.render();
   }
 });

@@ -13,3 +13,24 @@ Map.prototype.print = function() {
     console.log(row.join(""));
   }
 }
+
+Map.prototype.renderTiles = function(container, sprites, size) {
+  var map = this.map;
+  for (var row = 0; row < map.length; row++) {
+    for (var col = 0; col < map[row].length; col++) {
+      var block = map[row][col];
+      block.render(size);
+    }
+  }
+}
+
+Map.prototype.initializeTiles = function(container, images) {
+  var map = this.map;
+  for (var row = 0; row < map.length; row++) {
+    for (var col = 0; col < map[row].length; col++) {
+      var block = map[row][col];
+      console.log("Initializing tiles");
+      block.initSprite(container, images);
+    }
+  }
+}

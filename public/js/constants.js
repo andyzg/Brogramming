@@ -1,4 +1,3 @@
-console.log("Loading constants");
 var Tile = {
   PATH: " ",
   WALL: "X",
