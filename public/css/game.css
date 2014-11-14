@@ -82,20 +82,20 @@ div#left div.buttons button#documentation {
   float: left;
   margin-top: 8px;
   margin-left: 8px;
-  width: 100px;
+  width: 140px;
 }
 
-div#left div.buttons button#evaluate {
+div.buttons .right {
   float: right;
   margin-top: 8px;
   margin-right: 8px;
   width: 60px;
 }
 
-div#left div.buttons button#stop {
-  float: right;
-  margin-top: 8px;
-  width: 60px;
+div.buttons .spinner {
+  visibility: hidden;
+  margin-top: 15px;
+  margin-right: 25px;
 }
 
 div#right {
