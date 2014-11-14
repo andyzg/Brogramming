@@ -2,18 +2,17 @@ doctype html
 html(lang="en")
   head
     title= pageTitle
+    script(src='../lib/jquery.min.js')
+    link(rel='stylesheet', href='/lib/bootstrap/bootstrap.min.css')
     link(rel='stylesheet', href='/css/pages.css')
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Open+Sans', type='text/css')
     script(src='/lib/react.js')
-    script(src='/js/pages.js')
   body
-    h1 Jade - node template engine
-    #container.col
-      if youAreUsingJade
-        p You are amazing
-      else
-        p Get on it!
-      p.
-        Jade is a terse and simple
-        templating language with a
-        strong focus on performance
-        and powerful features.
+    div.container
+      div#header
+        h1
+          | Brogramming Levels
+        p
+          | Let's get started here. Learning how to code can't possibly be more fun than with a bro. So let's code with a bro, also known as brogramming.
+      div#levels
+    script(src='/js/build/pages.js')
