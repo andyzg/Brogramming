@@ -33,6 +33,10 @@
       lastCommand = Math.random();
       commandsRef.push({type: 'run', id: lastCommand});
     });
+
+    document.getElementById('stop').addEventListener('click', function() {
+      controller.stop();
+    });
   }
 
   // Helper to get hash from end of URL or generate a random one.

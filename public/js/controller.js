@@ -90,6 +90,7 @@ Controller.prototype.performActions = function(f1, f2) {
 };
 
 Controller.prototype.run = function(code) {
+  this.stop();
   var controller = this;
   this.workerDfds = [Q.defer(), Q.defer()];
   this.workers = _.map(code, function(item, i) {
@@ -128,11 +129,13 @@ Controller.prototype.tick = function(result1, result2) {
     _.each(controller.workers, function(worker) {
       worker.postMessage({type: 'next'});
     });
-  }, 500);
+  }, 1000);
 };
 
 Controller.prototype.stop = function() {
+  console.log(this);
   _.each(this.workers, function(worker) {
+    console.log('terminate');
     worker.terminate();
   });
   workers = [];
