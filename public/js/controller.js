@@ -112,7 +112,7 @@
         }
       });
       worker.postMessage({type: 'begin', value: item});
-      worker.postMessage({type: 'next'})
+      worker.postMessage({type: 'next', conditionals: controller.getConditionals()})
       return worker;
     });
 
@@ -130,7 +130,7 @@
     }), controller.tick);
     setTimeout(function() {
       _.each(controller.workers, function(worker) {
-        worker.postMessage({type: 'next'});
+        worker.postMessage({type: 'next', conditionals: controller.getConditionals()});
       });
     }, 1000);
   };
@@ -141,6 +141,17 @@
     });
     this.workers = [];
     this.reset(this.data);
+  };
+
+  Controller.prototype.isBlocked = function(player) {
+    return 'stub';
+  }
+
+  Controller.prototype.getConditionals = function(playerId) {
+    var player = playerId == 0 ? this.player1 : this.player2;
+    return {
+      isBlocked: this.isBlocked()
+    };
   };
 
   Controller.prototype.functions = {
