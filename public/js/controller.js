@@ -1,4 +1,4 @@
-var Controller = function(id) {
+var Controller = function(id, callback) {
   if (!id) {
     console.error("ERROR: No id given");
     return;
@@ -22,17 +22,21 @@ var Controller = function(id) {
     console.log("Done ajax request");
     var obj = parseMap(data.map);
     this.map = new Map(obj.map, data.width, data.height);
+    this.switches = obj.switches;
     this.player1 = obj.players["1"];
     this.player2 = obj.players["2"];
+
     this.renderer.initializeTiles(this.map);
+    this.renderer.initializeSwitches(this.switches);
     this.renderer.initializePlayer(this.player1);
     this.renderer.initializePlayer(this.player2);
     console.log(this.map);
     console.log(this.player1);
     console.log(this.player2);
+    console.log(this.switches);
 
-    // Make sure the Ajax call is done as well as loading the assets
-    this.onLoaded();
+    callback();
+
   }.bind(this));
 }
 
@@ -45,7 +49,7 @@ Controller.prototype.render = function() {
     this.renderer.initialRender(this.map);
     this.hasInitialized = true;
   }
-  this.renderer.render(this.player1, this.player2);
+  this.renderer.render(this.player1, this.player2, this.switches);
 }
 
 Controller.prototype.animate = function() {

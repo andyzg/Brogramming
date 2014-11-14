@@ -9,6 +9,7 @@ var Renderer = function(dom, width, height) {
   // Define assets
   this.playerTexture = loadPlayerImages();
   this.playerAnimations = loadPlayerAnimations();
+  this.switchTexture = loadSwitchImages();
   this.tileImages = loadTileImages();
 
   // Define constants
@@ -26,10 +27,22 @@ Renderer.prototype.initializeTiles = function(map) {
   map.initializeTiles(this.tileContainer, this.tileImages);
 }
 
-Renderer.prototype.render = function(player1, player2) {
+
+Renderer.prototype.initializeSwitches = function(switches) {
+  console.log("Initializing switches");
+  for (var i = 0; i < switches.length; i++) {
+    switches[i].initSprite(this.stage, this.switchTexture, this.tileSize);
+  }
+}
+
+Renderer.prototype.render = function(player1, player2, switches) {
   console.log("Rendering");
   player1.render(this.tileSize);
   player2.render(this.tileSize);
+  for (var i = 0; i < switches.length; i++) {
+    switches[i].render();
+  }
+
   this.renderer.render(this.stage);
 }
 
@@ -51,6 +64,13 @@ Renderer.prototype.initializePlayer = function(player) {
 Renderer.prototype.animate = function(player1, player2) {
   player1.animate();
   this.renderer.render(this.stage);
+}
+
+function loadSwitchImages() {
+  var assets = {};
+  assets[Switch.ON] = PIXI.Texture.fromImage("/img/switch/on.png");
+  assets[Switch.OFF] = PIXI.Texture.fromImage("/img/switch/off.png");
+  return assets;
 }
 
 function loadPlayerImages() {
