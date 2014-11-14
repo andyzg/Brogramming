@@ -5,18 +5,27 @@ var Controller = function(id) {
   }
 
   var path = "/map/" + id;
-  console.log("ID is " + id + ", file name is " + path);
-  this.renderer = new Renderer();
+  `
+  // The renderer renders everything in the #map div
+  this.renderer = new Renderer(document.getElementById("map"));
   $.get(path, function(data) {
-    console.log("Got the data");
     this.id = data.id;
     this.title = data.title;
     this.description = data.description;
     this.objects = data.objects;
     this.goal = data.goal;
+
     var map = parseMap(data.map);
     this.map = new Map(map, data.width, data.height);
-    this.onLoaded();
+
+    // Make sure the Ajax call is done as well as loading the assets
+    if (this.renderer.isLoaded()) {
+      this.onLoaded();
+    } else {
+      this.renderer.onload = function() {
+        this.onLoaded;
+      }.bind(this);
+    }
   }.bind(this));
 }
 
