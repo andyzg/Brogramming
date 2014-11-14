@@ -12,6 +12,7 @@
   "title": "Hard level",
   "height": 8,
   "width": 8,
+  "difficulty": 3,
   "objects": [],
   "id": 9,
   "goal": {

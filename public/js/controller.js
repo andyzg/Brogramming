@@ -44,6 +44,8 @@
 
     this.map = new Map(obj.map, data.width, data.height);
     this.switches = obj.switches;
+    this.flags = obj.flags;
+    this.fogs = obj.fogs;
 
     if (this.player1) {
       this.player1.removeSelf();
@@ -60,9 +62,12 @@
     var goal = this.parseGoal(data.goal, this.player1, this.player2);
 
     this.renderer.initializeTiles(this.map);
-    this.renderer.initializeSwitches(this.switches);
+    // this.renderer.initializeSwitches(this.switches);
+    this.renderer.initializeFlags(this.flags);
+    this.renderer.initializeFogs(this.fogs);
     this.renderer.initializePlayer(this.player1);
     this.renderer.initializePlayer(this.player2);
+    this.renderer.render();
 
     if (callback) {
       callback();
@@ -75,12 +80,13 @@
   Controller.prototype.render = function() {
     // The tiles only need to be rendered once
     if (!this.hasInitialized) {
-      this.renderer.initialRender(this.map);
+      this.renderer.initialRender(this.map, this.fogs, this.flags);
       this.hasInitialized = true;
     }
-    this.renderer.render(this.player1, this.player2, this.switches);
+    this.renderer.render();
   };
 
+  console.log("Heeey");
   Controller.prototype.animate = function() {
     this.renderer.animate(this.player1, this.player2);
   };
@@ -90,6 +96,7 @@
     var b2;
     var anim1;
     var anim2;
+
     if (f1) {
       b1 = anim1 = f1.apply(this.player1);
     }
@@ -107,14 +114,14 @@
       if (!b1 && !b2) {
         this.player1.resetState();
         this.player2.resetState();
-        this.renderer.render(this.player1, this.player2, this.switches);
+        this.renderer.render();
         return;
       }
-      this.renderer.render(this.player1, this.player2, this.switches);
+      this.renderer.render();
       requestAnimationFrame(anim.bind(this));
     };
     anim.apply(this);
-    this.renderer.render(this.player1, this.player2, this.switches);
+    this.renderer.render();
   };
 
   Controller.prototype.run = function(code) {
@@ -150,7 +157,6 @@
 
   Controller.prototype.tick = function(result1, result2) {
     var controller = this.controller;
-    console.log(result1, result2);
     try {
       controller.performActions(controller.functions[result1], controller.functions[result2]);
     } catch (ex) {

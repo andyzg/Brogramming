@@ -4,7 +4,11 @@ var Tile = {
   WATER: "W",
   SWITCH: "O",
   PLAYER_ONE: "1",
-  PLAYER_TWO: "2"
+  PLAYER_TWO: "2",
+  BLUE_FLAG: "B",
+  RED_FLAG: "R",
+  FOG_PATH: "f",
+  FOG_WALL: "x",
 };
 
 var SwitchValue = {
