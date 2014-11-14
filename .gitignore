@@ -38,4 +38,4 @@ Session.vim
 
 .idea/
 
-*/.module-cache/*
+public/js/build/.module-cache/
