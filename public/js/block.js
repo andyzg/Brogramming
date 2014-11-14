@@ -1,12 +1,7 @@
-var Block = function(elem, x, y) {
+var Block = function(elem, row, col) {
   this.elem = elem;
-  switch(elem) {
-    case Block.WATER:
-      this.image = "water.png"
-      break;
-  }
-  this.x = x;
-  this.y = y;
+  this.row = row;
+  this.col = col;
 }
 
 Block.prototype.draw = function() {

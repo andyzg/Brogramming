@@ -28,7 +28,6 @@ function assert(condition, message) {
  * @return {array} arr - A 2D array
  */
 function new2DArray(row, column) {
-  console.log(row, column);
   var arr = new Array(row);
   for (var i = 0; i < row; i++) {
     arr[i] = new Array(column);

@@ -5,7 +5,7 @@ var Controller = function(id) {
   }
 
   var path = "/map/" + id;
-  `
+
   // The renderer renders everything in the #map div
   this.renderer = new Renderer(document.getElementById("map"));
   $.get(path, function(data) {
@@ -15,17 +15,14 @@ var Controller = function(id) {
     this.objects = data.objects;
     this.goal = data.goal;
 
-    var map = parseMap(data.map);
-    this.map = new Map(map, data.width, data.height);
+    var obj = parseMap(data.map);
+    this.map = new Map(obj.map, data.width, data.height);
+    this.players = obj.players;
+    console.log(this.map);
+    console.log(this.players);
 
     // Make sure the Ajax call is done as well as loading the assets
-    if (this.renderer.isLoaded()) {
-      this.onLoaded();
-    } else {
-      this.renderer.onload = function() {
-        this.onLoaded;
-      }.bind(this);
-    }
+    this.onLoaded();
   }.bind(this));
 }
 
