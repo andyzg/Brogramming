@@ -27,7 +27,7 @@ var Controller = function(id) {
     this.player2 = obj.players["2"];
 
     this.renderer.initializeTiles(this.map);
-    //this.renderer.initializeSwitches(this.switches);
+    this.renderer.initializeSwitches(this.switches);
     this.renderer.initializePlayer(this.player1);
     this.renderer.initializePlayer(this.player2);
     console.log(this.map);

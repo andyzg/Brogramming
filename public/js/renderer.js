@@ -39,9 +39,9 @@ Renderer.prototype.render = function(player1, player2, switches) {
   console.log("Rendering");
   player1.render(this.tileSize);
   player2.render(this.tileSize);
-/*  for (var i = 0; i < switches.length; i++) {
+  for (var i = 0; i < switches.length; i++) {
     switches[i].render();
-  }*/
+  }
 
   this.renderer.render(this.stage);
 }
