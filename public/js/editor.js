@@ -27,8 +27,7 @@
     commandsRef.on('child_added', onCommand);
 
     document.getElementById('evaluate').addEventListener('click', function () {
-      var code = firepads[0].getText();
-      evaluate(code);
+      run();
       lastCommand = Math.random();
       commandsRef.push({type: 'run', id: lastCommand});
     });
@@ -64,36 +63,41 @@
     var commandType = command.child('type').val();
 
     if (commandType === 'run') {
-      var code = firepads[0].getText();
-      evaluate(code);
+      run();
     } else if (commandType === 'stop') {
 
     }
   }
 
-  function evaluate(code) {
+  function run() {
     //var sandbox = document.getElementById('sandbox');
     //sandbox.contentWindow.postMessage(code, '*');
-    var worker = new Worker('js/userCodeWorker.js');
-    worker.addEventListener("message", function(e) {
-      if (e.data.type === 'log') {
-        logResult(e.data.value);
-      } else if (e.data.type === 'action') {
-        if (!e.data.value.done) {
-          logResult(e.data.value.value);
-          setTimeout(function() {
-            worker.postMessage({type: 'next'});
-          }, 1000);
+    for (var i = 0; i < firepads.length; i++) {
+      (function(i) { // Closure so that right i value is used
+        var worker = new Worker('js/userCodeWorker.js');
+        var code = firepads[i].getText();
+        var id = 'console' + i;
+        worker.addEventListener("message", function(e) {
+        if (e.data.type === 'log') {
+          logResult(e.data.value, id);
+        } else if (e.data.type === 'action') {
+          if (!e.data.value.done) {
+            logResult(e.data.value.value, id);
+            setTimeout(function() {
+              worker.postMessage({type: 'next'});
+            }, 1000);
+          }
         }
-      }
-    });
-    worker.postMessage({type: 'begin', value: code});
-    worker.postMessage({type: 'next'});
+      });
+      worker.postMessage({type: 'begin', value: code});
+      worker.postMessage({type: 'next'});
+      }) (i);
+    }
   }
 
-  function logResult(message) {
-    var console = document.getElementById('console');
-    console.value += message + '\n';
+  function logResult(message, id) {
+    var textArea = document.getElementById(id);
+    textArea.value += message + '\n';
   }
 
   window.onload = init; // TODO change
