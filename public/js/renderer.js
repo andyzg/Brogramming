@@ -27,6 +27,7 @@ Renderer.prototype.initializeTiles = function(map) {
   map.initializeTiles(this.tileContainer, this.tileImages);
 }
 
+
 Renderer.prototype.initializeSwitches = function(switches) {
   console.log("Initializing switches");
   for (var i = 0; i < switches.length; i++) {
@@ -35,6 +36,7 @@ Renderer.prototype.initializeSwitches = function(switches) {
 }
 
 Renderer.prototype.render = function(player1, player2, switches) {
+  console.log("Rendering");
   player1.render(this.tileSize);
   player2.render(this.tileSize);
 /*  for (var i = 0; i < switches.length; i++) {
@@ -47,11 +49,11 @@ Renderer.prototype.render = function(player1, player2, switches) {
 Renderer.prototype.initializePlayer = function(player) {
   switch (player.getID()) {
     case "1":
-      player.initSprite(this.stage, this.playerTexture["1"], this.tileSize);
+      player.initSprite(this.playerTexture["1"], this.tileSize);
       player.initAnimations(this.stage, this.playerAnimations["1"]);
       break;
     case "2":
-      player.initSprite(this.stage, this.playerTexture["2"], this.tileSize);
+      player.initSprite(this.playerTexture["2"], this.tileSize);
       player.initAnimations(this.stage, this.playerAnimations["2"]);
       break;
     default:
@@ -61,7 +63,6 @@ Renderer.prototype.initializePlayer = function(player) {
 
 Renderer.prototype.animate = function(player1, player2) {
   player1.animate();
-  player2.animate();
   this.renderer.render(this.stage);
 }
 

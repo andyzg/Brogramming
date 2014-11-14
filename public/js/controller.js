@@ -44,6 +44,7 @@ var Controller = function(id) {
  * To be called by the main JS, script.js
  */
 Controller.prototype.render = function() {
+  // The tiles only need to be rendered once
   if (!this.hasInitialized) {
     this.renderer.initialRender(this.map);
     this.hasInitialized = true;
@@ -53,4 +54,36 @@ Controller.prototype.render = function() {
 
 Controller.prototype.animate = function() {
   this.renderer.animate(this.player1, this.player2);
+}
+
+Controller.prototype.run = function(f1, f2) {
+  var b1 = true;
+  var b2 = true;
+  var anim1;
+  var anim2;
+  if (f1) {
+    b1 = anim1 = f1.apply(this.player1);
+  }
+  if (f2) {
+    b2 = anim2 = f2.apply(this.player2);
+  }
+
+  function anim() {
+    if (b1) {
+      b1 = anim1.apply(this.player1);
+    }
+    if (b2) {
+      b2 = anim2.apply(this.player2);
+    }
+    if (!b1 && !b2) {
+      this.player1.resetState();
+      this.player2.resetState();
+      this.renderer.render(this.player1, this.player2);
+      return;
+    }
+    this.renderer.render(this.player1, this.player2);
+    requestAnimationFrame(anim.bind(this));
+  };
+  anim.apply(this);
+  this.renderer.render(this.player1, this.player2);
 }
