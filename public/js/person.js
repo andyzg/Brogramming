@@ -44,6 +44,16 @@ Player.prototype.at = function(row, col) {
   return row == this.row && col == this.col;
 }
 
+Player.prototype.isValidLocation = function() {
+  var block = this.anim[this.row][this.col];
+  if (block) {
+    if (block.getElement() == Tile.PATH || block.getElement().SWITCH) {
+      return true;
+    }
+  }
+  return false;
+}
+
 Player.prototype.turnLeft = function() {
   this.stage.removeChild(this.anim[this.direction]);
   var newDir = this.direction - 1;
@@ -73,6 +83,7 @@ Player.prototype.resetLocation = function() {
  * The callback should be called every time unless
  */
 Player.prototype.moveForward = function() {
+  console.log("MOVING FORWARD");
   switch (this.direction) {
     case Direction.TOP:
       this.row = this.row - 1;
@@ -89,6 +100,12 @@ Player.prototype.moveForward = function() {
     default:
       throw "ERROR: The direction doesn't exist";
       return;
+  }
+
+  if (this.row < 0 || this.row > this.map.length || this.col < 0 ||
+      this.col > this.map[0].length || !isValidLocation()) {
+    throw "ERROR: Invalid movement";
+    return;
   }
   this.xPos = this.col * this.size;
   this.yPos = this.row * this.size;

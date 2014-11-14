@@ -19,3 +19,7 @@ Block.prototype.render = function(size) {
   this.sprite.position.x = this.col * size;
   this.sprite.position.y = this.row * size;
 }
+
+Block.prototype.getElement = function() {
+  return this.elem;
+}
