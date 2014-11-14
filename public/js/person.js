@@ -4,6 +4,7 @@ var Player = function(id, row, col) {
   this.row = row;
   this.col = col;
   this.isAnimating = false;
+  this.goal = {};
 
   this.startState = 0;
   this.animationSpeed = 0.1;
@@ -12,6 +13,10 @@ var Player = function(id, row, col) {
 Player.prototype.setMap = function(map) {
   this.map = map;
 };
+
+Player.prototype.setGoal = function(location) {
+  this.goal = location;
+}
 
 Player.prototype.initSprite = function(textures, size) {
   this.size = size;
@@ -101,6 +106,23 @@ Player.prototype.isValidLocation = function(location) {
   return locationType == Tile.PATH || locationType == Tile.SWITCH;
 };
 
+Player.prototype.isOnGoal = function(location) {
+  console.log("checking for goal");
+  if ((location.row == this.goal.row) && (location.col==this.goal.column)) {
+    return true;
+  }
+  return false;
+}
+
+Player.prototype.isOnSwitch = function(location) {
+  if (location.row < 0 || location.row >= this.map.length || location.col < 0 ||
+    location.col >= this.map[0].length) {
+    return false;
+  }
+  var locationType = this.getLocationValue(location);
+  return locationType == Tile.PATH || locationType == Tile.SWITCH;
+};
+
 /**
  * Calling this function assumes that it's possible to walk forward
  * To animate, first call moveForward. This returns a callback to be called
@@ -110,6 +132,10 @@ Player.prototype.moveForward = function() {
   var location = this.getCoordinateForward();
   if (!this.isValidLocation(location)) {
     throw 'Cannot move forward';
+  }
+
+  if (this.isOnGoal(location)) {
+    console.log("Player " + this.id + " on goal");
   }
 
   this.col = location.col;

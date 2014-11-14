@@ -21,7 +21,6 @@ function parseMap(map) {
       } else if (block == Tile.SWITCH) {
         arr[row][column] = new Block(Tile.PATH, row, column);
         switches.push(new Switch(switches.length, row, column));
-
       } else {
         arr[row][column] = new Block(block, row, column);
       }

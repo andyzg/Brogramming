@@ -19,6 +19,18 @@
     window.initEditor(this);
   };
 
+  Controller.prototype.parseGoal = function (goal, player1, player2) {
+    for (key in goal) {
+      var location = {};
+      location['row'] = goal[key][0];
+      location['column'] = goal[key][1];
+      if (key == "1") {
+        player1.setGoal(location);
+      } else if (key == "2") {
+        player2.setGoal(location);
+      }
+    }
+  }
   Controller.prototype.reset = function(data, callback) {
     this.id = data.id;
     this.title = data.title;
@@ -29,6 +41,7 @@
     this.goal = data.goal;
 
     var obj = parseMap(data.map);
+
     this.map = new Map(obj.map, data.width, data.height);
     this.switches = obj.switches;
 
@@ -43,6 +56,8 @@
 
     this.player1 = obj.players["1"];
     this.player2 = obj.players["2"];
+
+    var goal = this.parseGoal(data.goal, this.player1, this.player2);
 
     this.renderer.initializeTiles(this.map);
     this.renderer.initializeSwitches(this.switches);
