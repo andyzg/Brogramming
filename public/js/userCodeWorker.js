@@ -27437,7 +27437,15 @@ setIterator = function(it) {
 
 preprocess = function(code) {
   var iteratorName = 'jlkxjvbasdfasdfaxzcv';
-  code = 'setIterator((function*() { var ' + iteratorName + ';' + code + '})());'
+  var valName = 'gkdjflkjvlkzjxcvz';
+  /**
+   * setIterator((function*() {
+   *    user's code
+   * }) ());
+   */
+  code = 'setIterator((function*() { var ' + iteratorName + ', ' + valName + '; ' + code + '})());'
+
+  // Add yield before functions whose names are in pauseOn
   for (var i = 0; i < pauseOn.length; i++) {
     var re = new RegExp('([^\w])'+ pauseOn[i] + '\\s*\\(', 'g');
     code = code.replace(re, '$1yield ' + pauseOn[i] + '(');
@@ -27446,20 +27454,45 @@ preprocess = function(code) {
   while (match != null) {
     var name = match[2];
     var re = new RegExp('([^f][^u][^n][^c][^t][^i][^o][^n]\\s+)(' + name + '\\s*\\(.*\\))', 'g');
+    // Match when declared function is called
 
-    code = code.replace(re, '$1' + iteratorName + ' = $2; while(!' + iteratorName + '.next().done) { yield;} ');
+    /**
+     * foo() is converted to
+     *
+     * iteratorName = foo();
+     * valName = iteratorName.next();
+     * while(!valName.done) {
+     *   yield valName.value;
+     *   valName = iteratorName.next();
+     * }
+     */
+    code = code.replace(re, '$1' + iteratorName + ' = $2; ' + valName + ' = ' + iteratorName + '.next(); '
+      + 'while(!' + valName + '.done) { yield ' + valName + '.value ; ' + valName + ' = ' + iteratorName + '.next(); } ');
 
     match = definedRegex.exec(code);
   }
-  code = code.replace(definedRegex, '$1* $2(');
-  console.log(code);
+
+  code = code.replace(definedRegex, '$1* $2('); // convert function to function*
+
   return new traceur.Compiler().compile(code);
+};
+
+moveForward = function() {
+  return 'moveForward'
+};
+
+turnLeft = function() {
+  return 'turnLeft'
+};
+
+turnRight = function() {
+  return 'turnRight'
 };
 
 onmessage = function(event) {
   if (event.data.type === 'begin') {
     eval(preprocess(event.data.value));
   } else if (event.data.type === 'next') {
-    postMessage({type: 'next', value: iterator.next() });
+    postMessage({type: 'action', value: iterator.next() });
   }
 }

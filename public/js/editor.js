@@ -51,10 +51,12 @@
     worker.addEventListener("message", function(e) {
       if (e.data.type === 'log') {
         logResult(e.data.value);
-      } else if (e.data.type === 'next') {
+      } else if (e.data.type === 'action') {
         if (!e.data.value.done) {
           logResult(e.data.value.value);
-          worker.postMessage({type: 'next'});
+          setTimeout(function() {
+            worker.postMessage({type: 'next'});
+          }, 1000);
         }
       }
     });
