@@ -27420,6 +27420,12 @@ System.get("traceur@0.0.75/src/traceur-import" + '');
 
 var log = '';
 var iterator;
+var pauseOn = [
+  'moveForward',
+  'turnLeft',
+  'turnRight'
+];
+var definedRegex = /([^\w]function)\s(\w+)\(/g;
 
 console.log = function(message) {
   postMessage({type: 'log', value: message});
@@ -27430,7 +27436,23 @@ setIterator = function(it) {
 };
 
 preprocess = function(code) {
-  code = 'setIterator((function*() {' + code + '})());'
+  var iteratorName = 'jlkxjvbasdfasdfaxzcv';
+  code = 'setIterator((function*() { var ' + iteratorName + ';' + code + '})());'
+  for (var i = 0; i < pauseOn.length; i++) {
+    var re = new RegExp('([^\w])'+ pauseOn[i] + '\\s*\\(', 'g');
+    code = code.replace(re, '$1yield ' + pauseOn[i] + '(');
+  }
+  var match = definedRegex.exec(code);
+  while (match != null) {
+    var name = match[2];
+    var re = new RegExp('([^f][^u][^n][^c][^t][^i][^o][^n]\\s+)(' + name + '\\s*\\(.*\\))', 'g');
+
+    code = code.replace(re, '$1' + iteratorName + ' = $2; while(!' + iteratorName + '.next().done) { yield;} ');
+
+    match = definedRegex.exec(code);
+  }
+  code = code.replace(definedRegex, '$1* $2(');
+  console.log(code);
   return new traceur.Compiler().compile(code);
 };
 

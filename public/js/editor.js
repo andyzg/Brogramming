@@ -49,7 +49,6 @@
     //sandbox.contentWindow.postMessage(code, '*');
     var worker = new Worker('js/userCodeWorker.js');
     worker.addEventListener("message", function(e) {
-      console.log(e);
       if (e.data.type === 'log') {
         logResult(e.data.value);
       } else if (e.data.type === 'next') {
