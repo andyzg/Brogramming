@@ -27499,6 +27499,10 @@ isBlocked = function() {
   return conditionals && conditionals.isBlocked;
 };
 
+isOnGoal = function() {
+  return conditionals && conditionals.isOnGoal;
+}
+
 onmessage = function(event) {
   if (event.data.type === 'begin') {
     alert = console.log = log;

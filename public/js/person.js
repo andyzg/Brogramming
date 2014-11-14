@@ -106,12 +106,9 @@ Player.prototype.isValidLocation = function(location) {
   return locationType == Tile.PATH || locationType == Tile.SWITCH;
 };
 
-Player.prototype.isOnGoal = function(location) {
-  console.log("checking for goal");
-  if ((location.row == this.goal.row) && (location.col==this.goal.column)) {
-    return true;
-  }
-  return false;
+Player.prototype.isOnGoal = function() {
+  console.log(this.goal);
+  return this.row == this.goal.row && this.col == this.goal.column;
 }
 
 Player.prototype.isOnSwitch = function(location) {
@@ -132,10 +129,6 @@ Player.prototype.moveForward = function() {
   var location = this.getCoordinateForward();
   if (!this.isValidLocation(location)) {
     throw 'Cannot move forward';
-  }
-
-  if (this.isOnGoal(location)) {
-    console.log("Player " + this.id + " on goal");
   }
 
   this.col = location.col;

@@ -167,6 +167,11 @@
       logResult(ex.toString(), '#console' + 1);
       controller.stop();
     }
+    if (controller.player1.isOnGoal() && controller.player2.isOnGoal()) {
+      controller.stop();
+      onWin(controller.levelId, controller.numTicks);
+      return;
+    }
     controller.workerDfds = [Q.defer(), Q.defer()];
     Q.spread(_.map(controller.workerDfds, function(dfd) {
       return dfd.promise;
@@ -193,7 +198,8 @@
   Controller.prototype.getConditionals = function(playerId) {
     var player = playerId == 0 ? this.player1 : this.player2;
     return {
-      isBlocked: this.isBlocked(player)
+      isBlocked: this.isBlocked(player),
+      isOnGoal: player.isOnGoal()
     };
   };
 
