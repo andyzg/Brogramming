@@ -79,14 +79,14 @@ Controller.prototype.tick = function(f1, f2) {
     if (!b1 && !b2) {
       this.player1.resetState();
       this.player2.resetState();
-      this.renderer.render(this.player1, this.player2);
+      this.renderer.render(this.player1, this.player2, this.switches);
       return;
     }
-    this.renderer.render(this.player1, this.player2);
+    this.renderer.render(this.player1, this.player2, this.switches);
     requestAnimationFrame(anim.bind(this));
   };
   anim.apply(this);
-  this.renderer.render(this.player1, this.player2);
+  this.renderer.render(this.player1, this.player2, this.switches);
 };
 
 Controller.prototype.run = function(code) {

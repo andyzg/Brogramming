@@ -7,7 +7,7 @@ var Tile = {
   PLAYER_TWO: "2"
 };
 
-var Switch = {
+var SwitchValue = {
   OFF: 0,
   ON: 1
 }
