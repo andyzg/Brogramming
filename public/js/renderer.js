@@ -126,3 +126,4 @@ function loadTileImages() {
   assets[Tile.WATER] = PIXI.Texture.fromImage("/img/tiles/water.png");
   return assets;
 }
+
