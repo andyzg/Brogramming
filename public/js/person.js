@@ -7,11 +7,11 @@ var Player = function(id, row, col) {
 
   this.startState = 0;
   this.animationSpeed = 0.1;
-}
+};
 
 Player.prototype.setMap = function(map) {
   this.map = map;
-}
+};
 
 Player.prototype.initSprite = function(textures, size) {
   this.size = size;
@@ -22,7 +22,7 @@ Player.prototype.initSprite = function(textures, size) {
   this.textures = textures;
   this.sprite = new PIXI.Sprite(textures[this.direction]);
   // Sets the default direction as bottom
-}
+};
 
 Player.prototype.initAnimations = function(stage, animations) {
   this.anim = animations;
@@ -30,34 +30,27 @@ Player.prototype.initAnimations = function(stage, animations) {
   this.stage = stage;
   this.resetLocation();
   stage.addChild(this.anim[this.direction]);
-}
+};
 
 Player.prototype.resetState = function() {
   this.anim[this.direction].gotoAndStop(this.startState);
-}
+};
 
 Player.prototype.getID = function() {
   return this.id;
-}
+};
 
 Player.prototype.at = function(row, col) {
   return row == this.row && col == this.col;
-}
+};
 
-Player.prototype.getLocationValue = function() {
-  return this.anim[this.row][this.col] ?
-    this.anim[this.row][this.col].getElement() : null;
-}
-
-Player.prototype.isValidLocation = function() {
-  var val = this.getLocationValue();
-  if (val) {
-    if (val == Tile.PATH || val == Tile.SWITCH) {
-      return true;
-    }
+Player.prototype.getLocationValue = function(location) {
+  if (location === undefined) {
+    location = {col: this.col, row: this.row};
   }
-  return false;
-}
+  return this.map[location.row][location.col] ?
+    this.map[location.row][location.col].getElement() : null;
+};
 
 Player.prototype.turnLeft = function() {
   this.stage.removeChild(this.anim[this.direction]);
@@ -66,7 +59,7 @@ Player.prototype.turnLeft = function() {
   this.stage.addChild(this.anim[this.direction]);
   this.resetLocation();
   return false;
-}
+};
 
 Player.prototype.turnRight = function() {
   this.stage.removeChild(this.anim[this.direction]);
@@ -75,12 +68,38 @@ Player.prototype.turnRight = function() {
   this.stage.addChild(this.anim[this.direction]);
   this.resetLocation();
   return false;
-}
+};
 
 Player.prototype.resetLocation = function() {
   this.anim[this.direction].position.x = this.col * this.size;
   this.anim[this.direction].position.y = this.row * this.size;
-}
+};
+
+Player.prototype.getCoordinateForward = function() {
+  var col = this.col;
+  var row = this.row;
+  switch (this.direction) {
+    case Direction.TOP:
+      return {col: col, row: row - 1};
+    case Direction.RIGHT:
+      return {col: col + 1, row: row};
+    case Direction.BOTTOM:
+      return {col: col, row: row + 1};
+    case Direction.LEFT:
+      return {col: col - 1, row: row};
+    default:
+      throw('wtf?');
+  }
+};
+
+Player.prototype.isValidLocation = function(location) {
+  if (location.row < 0 || location.row >= this.map.length || location.col < 0 ||
+    location.col >= this.map[0].length) {
+    return false;
+  }
+  var locationType = this.getLocationValue(location);
+  return locationType == Tile.PATH || locationType == Tile.SWITCH;
+};
 
 /**
  * Calling this function assumes that it's possible to walk forward
@@ -88,39 +107,22 @@ Player.prototype.resetLocation = function() {
  * The callback should be called every time unless
  */
 Player.prototype.moveForward = function() {
-  console.log("MOVING FORWARD");
-  switch (this.direction) {
-    case Direction.TOP:
-      this.row = this.row - 1;
-      break;
-    case Direction.RIGHT:
-      this.col = this.col + 1;
-      break;
-    case Direction.BOTTOM:
-      this.row = this.row + 1;
-      break;
-    case Direction.LEFT:
-      this.col = this.col - 1;
-      break;
-    default:
-      throw "ERROR: The direction doesn't exist";
-      return;
+  var location = this.getCoordinateForward();
+  if (!this.isValidLocation(location)) {
+    throw 'Cannot move forward';
   }
 
-  if (this.row < 0 || this.row > this.map.length || this.col < 0 ||
-      this.col > this.map[0].length || !isValidLocation()) {
-    throw "ERROR: Invalid movement";
-    return;
-  }
-  this.xPos = this.col * this.size;
-  this.yPos = this.row * this.size;
+  this.col = location.col;
+  this.row = location.row;
+  this.xPos = location.col * this.size;
+  this.yPos = location.row * this.size;
   this.counter = this.size;
 
   this.anim[this.direction].play();
   this.anim[this.direction].animationSpeed = this.animationSpeed;
   this.isAnimating = true;
   return this.animate;
-}
+};
 
 Player.prototype.animate = function() {
   if (!this.isAnimating) {
@@ -153,4 +155,4 @@ Player.prototype.animate = function() {
   } else {
     return true;
   }
-}
+};

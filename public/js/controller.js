@@ -42,7 +42,7 @@
     if (callback) {
       callback();
     }
-  }
+  };
 
   /**
    * To be called by the main JS, script.js
@@ -113,7 +113,7 @@
         }
       });
       worker.postMessage({type: 'begin', value: item});
-      worker.postMessage({type: 'next', conditionals: controller.getConditionals()})
+      worker.postMessage({type: 'next', conditionals: controller.getConditionals(i)})
       return worker;
     });
     setSpinner(true);
@@ -126,14 +126,20 @@
   Controller.prototype.tick = function(result1, result2) {
     var controller = this.controller;
     console.log(result1, result2);
-    controller.performActions(controller.functions[result1], controller.functions[result2]);
+    try {
+      controller.performActions(controller.functions[result1], controller.functions[result2]);
+    } catch (ex) {
+      logResult(ex.toString(), '#console' + 0);
+      logResult(ex.toString(), '#console' + 1);
+      controller.stop();
+    }
     controller.workerDfds = [Q.defer(), Q.defer()];
     Q.spread(_.map(controller.workerDfds, function(dfd) {
       return dfd.promise;
     }), controller.tick, setSpinner);
     setTimeout(function() {
-      _.each(controller.workers, function(worker) {
-        worker.postMessage({type: 'next', conditionals: controller.getConditionals()});
+      _.each(controller.workers, function(worker, i) {
+        worker.postMessage({type: 'next', conditionals: controller.getConditionals(i)});
       });
     }, 1000);
   };
@@ -148,13 +154,13 @@
   };
 
   Controller.prototype.isBlocked = function(player) {
-    return 'stub';
+    return !player.isValidLocation(player.getCoordinateForward());
   }
 
   Controller.prototype.getConditionals = function(playerId) {
     var player = playerId == 0 ? this.player1 : this.player2;
     return {
-      isBlocked: this.isBlocked()
+      isBlocked: this.isBlocked(player)
     };
   };
 

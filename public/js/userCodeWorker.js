@@ -27427,6 +27427,7 @@ var pauseOn = [
   'wait'
 ];
 var definedRegex = /([^\w]function)\s(\w+)\(/g;
+var conditionals;
 
 print = function(message) {
   postMessage({type: 'log', value: message});
@@ -27494,11 +27495,16 @@ wait = function() {
   return 'wait';
 };
 
+isBlocked = function() {
+  return conditionals && conditionals.isBlocked;
+};
+
 onmessage = function(event) {
   if (event.data.type === 'begin') {
     alert = console.log = log;
     eval(preprocess(event.data.value));
   } else if (event.data.type === 'next') {
+    conditionals = event.data.conditionals;
     postMessage({type: 'action', value: iterator.next() });
   }
 }

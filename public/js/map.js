@@ -16,9 +16,9 @@ Map.prototype.print = function() {
 
 Map.prototype.renderTiles = function(container, sprites, size) {
   var map = this.map;
-  for (var row = 0; row < map.length; row++) {
-    for (var col = 0; col < map[row].length; col++) {
-      var block = map[row][col];
+  for (var x = 0; x < map.length; x++) {
+    for (var y = 0; y < map[x].length; y++) {
+      var block = map[x][y];
       block.render(size);
     }
   }
@@ -26,9 +26,9 @@ Map.prototype.renderTiles = function(container, sprites, size) {
 
 Map.prototype.initializeTiles = function(container, images) {
   var map = this.map;
-  for (var row = 0; row < map.length; row++) {
-    for (var col = 0; col < map[row].length; col++) {
-      var block = map[row][col];
+  for (var x = 0; x < map.length; x++) {
+    for (var y = 0; y < map[x].length; y++) {
+      var block = map[x][y];
       console.log("Initializing tiles");
       block.initSprite(container, images);
     }
