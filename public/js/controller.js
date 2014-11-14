@@ -58,7 +58,6 @@ Controller.prototype.animate = function() {
 };
 
 Controller.prototype.performActions = function(f1, f2) {
-  console.log(this);
   var b1 = true;
   var b2 = true;
   var anim1;
@@ -124,10 +123,12 @@ Controller.prototype.tick = function(result1, result2) {
   controller.workerDfds = [Q.defer(), Q.defer()];
   Q.spread(_.map(controller.workerDfds, function(dfd) {
     return dfd.promise;
-  }), this.tick);
-  _.each(controller.workers, function(worker) {
-    worker.postMessage({type: 'next'});
-  });
+  }), controller.tick);
+  setTimeout(function() {
+    _.each(controller.workers, function(worker) {
+      worker.postMessage({type: 'next'});
+    });
+  }, 500);
 };
 
 Controller.prototype.stop = function() {
