@@ -1,4 +1,61 @@
+html {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   background-color: #eee;
+  height: 100%;
   width: 100%;
+}
+
+body div.container {
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  padding: 0;
+}
+
+body div.container div#header {
+  background-color: #33B5E5;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+body div.container div#header h1 {
+  text-align: center;
+  margin: 0;
+}
+
+body div.container div#header p {
+  font-size: 18px;
+  text-align: center;
+  margin: 10px auto 0 auto;
+  width: 600px;
+}
+
+body div.container {
+  background-color: #fff;
+  box-shadow: 5px 5px 5px #888888;
+  display: block;
+  height: 100%;
+}
+
+body div.container div#levels {
+  margin: 50px auto 0 auto;
+  width: 560px;
+}
+
+body div.container div#levels .level {
+  border-radius: 50%;
+  display: inline-block;
+  height: 150px;
+  width: 150px;
+  padding: 36px;
+  padding-top: 52px;
+  margin: 10px;
+}
+
+body div.container div#levels .level {
+  text-align: center;
+  font-size: 24px;
 }
