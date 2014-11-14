@@ -44,19 +44,12 @@ Player.prototype.at = function(row, col) {
   return row == this.row && col == this.col;
 }
 
-Player.prototype.getLocationValue = function() {
-  return this.anim[this.row][this.col] ?
-    this.anim[this.row][this.col].getElement() : null;
-}
-
-Player.prototype.isValidLocation = function() {
-  var val = this.getLocationValue();
-  if (val) {
-    if (val == Tile.PATH || val == Tile.SWITCH) {
-      return true;
-    }
+Player.prototype.getLocationValue = function(location) {
+  if (location === undefined) {
+    location = {x: this.col, y: this.row};
   }
-  return false;
+  return this.map[location.x][location.y] ?
+    this.map[location.x][location.y].getElement() : null;
 }
 
 Player.prototype.turnLeft = function() {
@@ -82,6 +75,32 @@ Player.prototype.resetLocation = function() {
   this.anim[this.direction].position.y = this.row * this.size;
 }
 
+Player.prototype.getCoordinateForward = function() {
+  var x = this.col;
+  var y = this.row;
+  switch (this.direction) {
+    case Direction.TOP:
+      return {x: x, y: y - 1};
+    case Direction.RIGHT:
+      return {x: x + 1, y: y};
+    case Direction.BOTTOM:
+      return {x: x, y: y + 1};
+    case Direction.LEFT:
+      return {x: x - 1, y: y};
+    default:
+      throw('wtf?');
+  }
+}
+
+Player.prototype.isValidLocation = function(location) {
+  if (location.x < 0 || location.x >= this.map.length || location.y < 0
+    || location.y >= this.map[0].length) {
+    return false;
+  }
+  var locationType = this.getLocationValue(location);
+  return locationType == Tile.PATH || locationType == Tile.SWITCH;
+}
+
 /**
  * Calling this function assumes that it's possible to walk forward
  * To animate, first call moveForward. This returns a callback to be called
@@ -89,31 +108,16 @@ Player.prototype.resetLocation = function() {
  */
 Player.prototype.moveForward = function() {
   console.log("MOVING FORWARD");
-  switch (this.direction) {
-    case Direction.TOP:
-      this.row = this.row - 1;
-      break;
-    case Direction.RIGHT:
-      this.col = this.col + 1;
-      break;
-    case Direction.BOTTOM:
-      this.row = this.row + 1;
-      break;
-    case Direction.LEFT:
-      this.col = this.col - 1;
-      break;
-    default:
-      throw "ERROR: The direction doesn't exist";
-      return;
+  var location = getCoordinateForward();
+
+  if (!isValidLocation(location)) {
+    throw 'Cannot move forward';
   }
 
-  if (this.row < 0 || this.row > this.map.length || this.col < 0 ||
-      this.col > this.map[0].length || !isValidLocation()) {
-    throw "ERROR: Invalid movement";
-    return;
-  }
-  this.xPos = this.col * this.size;
-  this.yPos = this.row * this.size;
+  this.col = location.x;
+  this.row = location.y;
+  this.xPos = location.x * this.size;
+  this.yPos = location.y * this.size;
   this.counter = this.size;
 
   this.anim[this.direction].play();
