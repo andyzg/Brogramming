@@ -44,10 +44,15 @@ Player.prototype.at = function(row, col) {
   return row == this.row && col == this.col;
 }
 
+Player.prototype.getLocationValue = function() {
+  return this.anim[this.row][this.col] ?
+    this.anim[this.row][this.col].getElement() : null;
+}
+
 Player.prototype.isValidLocation = function() {
-  var block = this.anim[this.row][this.col];
-  if (block) {
-    if (block.getElement() == Tile.PATH || block.getElement().SWITCH) {
+  var val = this.getLocationValue();
+  if (val) {
+    if (val == Tile.PATH || val == Tile.SWITCH) {
       return true;
     }
   }
