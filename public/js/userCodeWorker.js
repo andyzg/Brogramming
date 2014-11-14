@@ -27428,7 +27428,7 @@ var pauseOn = [
 ];
 var definedRegex = /([^\w]function)\s(\w+)\(/g;
 
-log = function(message) {
+print = function(message) {
   postMessage({type: 'log', value: message});
 };
 
