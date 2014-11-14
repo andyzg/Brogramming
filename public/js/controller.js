@@ -57,7 +57,8 @@ Controller.prototype.animate = function() {
   this.renderer.animate(this.player1, this.player2);
 };
 
-Controller.prototype.tick = function(f1, f2) {
+Controller.prototype.performActions = function(f1, f2) {
+  console.log(this);
   var b1 = true;
   var b2 = true;
   var anim1;
@@ -90,25 +91,56 @@ Controller.prototype.tick = function(f1, f2) {
 };
 
 Controller.prototype.run = function(code) {
-  _.each(code, function(item, i) {
+  var controller = this;
+  this.workerDfds = [Q.defer(), Q.defer()];
+  this.workers = _.map(code, function(item, i) {
     var worker = new Worker('js/userCodeWorker.js');
     var id = '#console' + i;
     worker.addEventListener("message", function(e) {
-      console.log(e);
       if (e.data.type === 'log') {
         logResult(e.data.value, id);
       } else if (e.data.type === 'action') {
         if (!e.data.value.done) {
-          logResult(e.data.value.value, id);
-          setTimeout(function() {
-            worker.postMessage({type: 'next'});
-          }, 1000);
+          logResult(e.data.value.value, id); // TODO change to process data
+          controller.workerDfds[i].resolve(e.data.value.value);
+        } else {
+          controller.workerDfds[i].reject();
         }
       }
     });
     worker.postMessage({type: 'begin', value: item});
+    worker.postMessage({type: 'next'})
+    return worker;
+  });
+
+  Q.spread(_.map(this.workerDfds, function(dfd) {
+    return dfd.promise;
+  }), this.tick);
+};
+
+Controller.prototype.tick = function(result1, result2) {
+  var controller = this.controller;
+  controller.performActions(controller.functions[result1], controller.functions[result2]);
+  controller.workerDfds = [Q.defer(), Q.defer()];
+  Q.spread(_.map(controller.workerDfds, function(dfd) {
+    return dfd.promise;
+  }), this.tick);
+  _.each(controller.workers, function(worker) {
     worker.postMessage({type: 'next'});
   });
+};
+
+Controller.prototype.stop = function() {
+  _.each(this.workers, function(worker) {
+    worker.terminate();
+  });
+  workers = [];
+};
+
+Controller.prototype.functions = {
+  moveForward: Player.prototype.moveForward,
+  turnLeft: Player.prototype.turnLeft,
+  turnRight: Player.prototype.turnRight
 };
 
 function logResult(message, id) {
