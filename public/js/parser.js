@@ -13,17 +13,25 @@ function parseMap(map) {
   for (var row = 0; row < map.length; row++) {
     for (var column = 0; column < map[row].length; column++) {
       var block = map[row][column];
+
       if (block == Tile.PLAYER_TWO || block == Tile.PLAYER_ONE) {
         arr[row][column] = new Block(Tile.PATH, row, column);
         players[block] = new Player(block, row, column);
+
       } else if (block == Tile.SWITCH) {
         arr[row][column] = new Block(Tile.PATH, row, column);
         switches.push(new Switch(switches.length, row, column));
+
       } else {
         arr[row][column] = new Block(block, row, column);
       }
     }
   }
+
+  for (var i in players) {
+    players[i].setMap(arr);
+  }
+
   return {
     map: arr,
     players: players,

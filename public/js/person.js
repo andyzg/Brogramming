@@ -9,6 +9,10 @@ var Player = function(id, row, col) {
   this.animationSpeed = 0.1;
 }
 
+Player.prototype.setMap = function(map) {
+  this.map = map;
+}
+
 Player.prototype.initSprite = function(textures, size) {
   this.size = size;
   this.xPos = this.col * this.size;
