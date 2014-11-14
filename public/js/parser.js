@@ -5,11 +5,9 @@
  * @return {array} map - 2D array of objects
  */
 function parseMap(map) {
-  assert(map.length == this.height);
-
   // Row <-> height
   // Column <-> width
-  var arr = new2DArray(this.height, this.width);
+  var arr = new2DArray(map.length, map[0].length);
   for (var row = 0; row < map.length; row++) {
     for (var column = 0; column < this.width; column++) {
       arr[row][column] = new Block(map[row][column]);
