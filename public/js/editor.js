@@ -1,5 +1,9 @@
 (function() {
 
+  var commandsRef;
+  var firepad;
+  var lastCommand;
+
   function init() {
     // Initialize Firebase.
     var firepadRef = getRandomRef();
@@ -12,16 +16,18 @@
     session.setMode("ace/mode/javascript");
 
     // Create Firepad.
-    var firepad = Firepad.fromACE(firepadRef, editor, {
+    firepad = Firepad.fromACE(firepadRef, editor, {
       defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'
     });
 
-    var commandsRef = firepadRef.child('history');
+    commandsRef = firepadRef.child('commands');
     commandsRef.on('child_added', onCommand);
 
     document.getElementById('evaluate').addEventListener('click', function () {
       var code = firepad.getText();
       evaluate(code);
+      lastCommand = Math.random();
+      commandsRef.push({type: 'run', id: lastCommand});
     });
   }
 
@@ -41,7 +47,18 @@
   }
 
   function onCommand(command, prevCommandName) {
-    console.log(command.child('a').val());
+    if (command.child('id').val() === lastCommand) {
+      return;
+    }
+
+    var commandType = command.child('type').val();
+
+    if (commandType === 'run') {
+      var code = firepad.getText();
+      evaluate(code);
+    } else if (commandType === 'stop') {
+
+    }
   }
 
   function evaluate(code) {

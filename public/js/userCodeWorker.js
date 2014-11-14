@@ -27427,7 +27427,7 @@ var pauseOn = [
 ];
 var definedRegex = /([^\w]function)\s(\w+)\(/g;
 
-console.log = function(message) {
+log = function(message) {
   postMessage({type: 'log', value: message});
 };
 
@@ -27491,6 +27491,7 @@ turnRight = function() {
 
 onmessage = function(event) {
   if (event.data.type === 'begin') {
+    alert = console.log = log;
     eval(preprocess(event.data.value));
   } else if (event.data.type === 'next') {
     postMessage({type: 'action', value: iterator.next() });
