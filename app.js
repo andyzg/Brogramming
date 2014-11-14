@@ -2,6 +2,7 @@ var express = require('express');
 var jade = require('jade');
 var path = require ('path');
 var app = express();
+//var facebook = require(__dirname + '/public/lib/facebook');
 
 var port = process.env.PORT || 3000;
 

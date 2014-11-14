@@ -2,7 +2,7 @@
 // Express - Facebook - By Dominiek ter Heide (MIT Licensed)
 
 sys = require('sys')
-hashlib = require('hashlib')
+md5 = require('MD5')
 
 exports.FBSession = Class({
   init: function (userId) {
@@ -100,7 +100,7 @@ exports.Facebook = Plugin.extend({
             return null;
 
           // Verify signature using apiSecret
-          var expected_signature = hashlib.md5(fingerprint+apiSecret);
+          var expected_signature = md5(fingerprint+apiSecret);
           var valid = (expected_signature === signature)
           if(!valid)
             sys.puts("Warning, invalid signature: "+fingerprint)
