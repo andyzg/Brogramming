@@ -1,0 +1,99 @@
+body div#left {
+  background-color: #F0F0F0;
+  width: 622px;
+  float: left;
+  font-family: 'Open Sans', sans-serif;
+}
+
+div#left div.cd-tabs {
+  width: 581px;
+  margin-left: 41px;
+  height: 5%;
+}
+
+div#left div.cd-tabs nav ul {
+  padding: 0;
+  margin: 0;
+}
+
+div#left div.cd-tabs nav ul li {
+  display: inline-block;
+  list-style-type: none;
+  height: 40px;
+  width: 100px;
+  background-color: #eee;
+}
+
+div#left div.cd-tabs nav ul li a {
+  display: block;
+  text-align: center;
+  padding-top: 10px;
+  height: 100%;
+  width: 100%;
+}
+
+div#left div.cd-tabs nav ul li a.selected {
+  background-color: #fff;
+}
+
+div#left div.cd-tabs nav ul li a:link {
+  color: #000;
+  text-decoration: none;
+}
+
+div#left div.cd-tabs-content li {
+  display: none;
+}
+
+div#left div.cd-tabs-content li.selected {
+  display: block;
+}
+
+div#left div.cd-tabs-content li textarea {
+  background-color: #002b36;
+  color: #fdf6e3;
+  cursor: default;
+  font-family: FreeMono, monospace;
+  font-size: 14px;
+  resize: none;
+  width: 99%;
+}
+
+div#left div.buttons {
+  height: 48px;
+}
+div#left div.buttons button#documentation {
+  float: left;
+  margin-top: 8px;
+  margin-left: 8px;
+  width: 100px;
+}
+
+div#left div.buttons button#evaluate {
+  float: right;
+  margin-top: 8px;
+  margin-right: 8px;
+  width: 60px;
+}
+
+div#left div.buttons button#stop {
+  float: right;
+  margin-top: 8px;
+  width: 60px;
+}
+
+div#right {
+  width: 800px;
+  min-width: 800px;
+  float: right;
+}
+
+div#right div#mapContainer {
+  padding: 0;
+}
+
+div#right div#map {
+  display: block;
+  margin: 200px; auto 0 auto;
+  width: 400px;
+}

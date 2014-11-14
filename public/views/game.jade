@@ -9,6 +9,7 @@ html(lang="en")
     script(src='https://cdn.firebase.com/libs/firepad/1.1.0/firepad.min.js')
     script(src='lib/underscore.js')
     script(src='lib/pixi.dev.js')
+    script(src='lib/modernizr.js')
     script(src='lib/jquery.min.js')
     script(src='lib/q.js')
     script(src='js/constants.js')
@@ -22,12 +23,34 @@ html(lang="en")
     script(src='js/controller.js')
     script(src='js/editor.js')
     script(src='js/script.js')
+    link(rel='stylesheet', type='text/css', href='lib/bootstrap/bootstrap.min.css')
+    link(rel='stylesheet', type='text/css', href='css/reset.css')
     link(rel='stylesheet', href='https://cdn.firebase.com/libs/firepad/1.1.0/firepad.css')
     link(rel='stylesheet', type='text/css', href='css/editor.css')
+    link(rel='stylesheet', type='text/css', href='css/game.css')
   body
-    div#map
-    div#pad0
-    div#pad1
-    button#evaluate(type='button') Run
-    textarea#console0.console(readonly)
-    textarea#console1.console(readonly)
+    div#left
+      div.cd-tabs.is-ended
+        nav
+          ul.cd-tabs-navigation
+            li
+              a.selected(href="#", data-content="Player 1") Player 1
+            li
+              a(href="#", data-content="Player 2") Player 2
+      div.cd-tabs-content
+        li.selected(data-content="Player 1")
+          div#pad0
+          textarea#console0.console(readonly)
+        li(data-content="Player 2")
+          div#pad1
+          textarea#console1.console(readonly)
+      div.buttons
+        button#documentation.btn-primary.btn-sm(type='button')
+          | Documentation
+        button#evaluate.btn-primary.btn-sm(type='button')
+          | Run
+        button#stop.btn-primary.btn-sm(type='button')
+          | Stop
+    div#right
+      div#mapContainer
+        div#map
