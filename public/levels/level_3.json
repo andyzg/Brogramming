@@ -1,5 +1,5 @@
 {
-  "id": 3,
+  "id": 2,
   "title": "Learn the basics",
   "difficulty": 1,
   "width": 5,
@@ -8,8 +8,8 @@
     "1WW 2",
     " XW  ",
     "  X  ",
-    "     ",
-    "     "
+    "  fxR",
+    "B   x"
   ],
   "description": "Welcome to Brogramming. In this first level, both you and your partner will need to move your character down 4 steps",
   "objects": [],
