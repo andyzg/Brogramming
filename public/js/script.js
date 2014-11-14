@@ -20,6 +20,10 @@ $(document).ready(function() {
     }
   });
 
+  $("#myModal").modal("hide");
+  $("#documentation").click(function() {
+    $("#myModal").modal("show");
+  });
   console.log("Document has loaded");
   var id = getParameterByName("id");
   var controller = new Controller(id, function() {

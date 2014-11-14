@@ -13,6 +13,7 @@ html(lang="en")
     script(src='lib/pixi.dev.js')
     script(src='lib/modernizr.js')
     script(src='lib/q.js')
+    script(src='lib/bootstrap/bootstrap.min.js')
     script(src='js/constants.js')
     script(src='js/util.js')
     script(src='js/block.js')
@@ -52,8 +53,42 @@ html(lang="en")
             div#pad1
             textarea#console1.console(readonly)
         div.buttons
-          button#documentation.btn-primary.btn-sm.left(type='button')
+          button#documentation.btn.btn-primary.btn-sm.left(type='button', data-toggle="modal", data-target=".bs-example-modal-lg")
             | Documentation
+          div#myModal.modal.bs-example-modal-lg(tabindex="-1", role="dialog", aria-labelledby="myLargeModalLabel", aria-hidden="true")
+            div.modal-dialog.modal-lg
+              div.modal-content
+                h1
+                  | Documentation
+                ul
+                  li
+                    code
+                      | moveForward();
+                    | Move forward by one step. This costs 1 time unit.
+                  li
+                    code
+                      | turnLeft();
+                    | Turn left. This costs 1 time unit
+                  li
+                    code
+                      | turnRight();
+                    | Turn right. This costs 1 time unit
+                  li
+                    code
+                      | print(string message);
+                    | Outputs a string
+                  li
+                    code
+                      | wait()
+                    | Stands there for 1 time unit
+                  li
+                    code
+                      | isBlocked()
+                    | Checks whether there is a wall in front
+                  li
+                    code
+                      | isOnGoal()
+                    | Checks whether the character is on the goal
           button#evaluate.btn-primary.btn-sm.right(type='button')
             | Run
           button#stop.btn-primary.btn-sm.right(type='button')
