@@ -10,7 +10,7 @@
         session.setUseWrapMode(true);
         session.setUseWorker(false);
         session.setMode("ace/mode/javascript");
-        
+
         // Create Firepad.
         var firepad = Firepad.fromACE(firepadRef, editor, {
           defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'
@@ -32,5 +32,5 @@
     return ref;
   }
 
-  window.onload = init;
+  window.onload = init; // TODO change
 })();
