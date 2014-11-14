@@ -188,3 +188,21 @@ html[xmlns] .clearfix {
 .modal-backdrop {
   z-index: -1;
 }
+
+div.modal-content {
+  height: 600px;
+  padding: 100px;
+}
+
+div.modal-content h1 {
+  font-size: 30px;
+}
+
+div.modal-content ul {
+  width: 400px;
+}
+
+div.modal-content ul li {
+  margin-top: 5px;
+  height: 40px;
+}
