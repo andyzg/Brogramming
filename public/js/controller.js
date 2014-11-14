@@ -6,6 +6,7 @@ var Controller = function(id) {
 
   var path = "/map/" + id;
   console.log("ID is " + id + ", file name is " + path);
+  this.renderer = new Renderer();
   $.get(path, function(data) {
     console.log("Got the data");
     this.id = data.id;
@@ -19,6 +20,9 @@ var Controller = function(id) {
   }.bind(this));
 }
 
-Controller.prototype.print = function() {
-  console.log(this);
+/**
+ * To be called by the main JS, script.js
+ */
+Controller.prototype.render = function() {
+  this.renderer.render(this.map);
 }
