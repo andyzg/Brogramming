@@ -1,29 +1,28 @@
 body {
   height: 100%;
   width: 100%;
+  min-width: 1200px;
+  min-height: 750px;
 }
 
 body div#box {
   display: block;
   height: 100%;
-  min-width: 1200px;
-  width: 1200px;
-}
-
-body div#left {
-  display: block;
+  width: 100%;
 }
 
 body div#left {
   background-color: #F0F0F0;
-  width: 622px;
+  border-right: 25px solid #F0F0F0;
   float: left;
   font-family: 'Open Sans', sans-serif;
+  display: block;
+  width: 50%;
 }
 
 div#left div.cd-tabs {
   width: 581px;
-  margin-left: 41px;
+  margin-left: 48px;
   height: 5%;
 }
 
@@ -48,13 +47,14 @@ div#left div.cd-tabs nav ul li a {
   width: 100%;
 }
 
-div#left div.cd-tabs nav ul li a.selected {
-  background-color: #fff;
-}
-
 div#left div.cd-tabs nav ul li a:link {
   color: #000;
   text-decoration: none;
+}
+
+div#left div.cd-tabs nav ul li a.selected {
+  background-color: #272822;
+  color: #FFF;
 }
 
 div#left div.cd-tabs-content li {
@@ -72,7 +72,7 @@ div#left div.cd-tabs-content li textarea {
   font-family: FreeMono, monospace;
   font-size: 14px;
   resize: none;
-  width: 99%;
+  width: 100%;
 }
 
 div#left div.buttons {
@@ -99,18 +99,80 @@ div.buttons .spinner {
 }
 
 div#right {
+  background-color: #232C31;
   display: block;
   float: right;
   margin: 0 auto 0 auto;
-  min-width: 500px;
+  width: 50%;
+  height: 100%;
 }
 
 div#right div#mapContainer {
   padding: 0;
+  background-color: #232C31;
 }
 
 div#right div#map {
   display: block;
-  margin: 50px; auto 0 auto;
-  width: 400px;
+  margin-top: 50px;
+  width: 100%;
+  height: 70%;
+}
+
+div#right div#map canvas {
+  background-color: #232C31;
+  display: block;
+  margin: 0 auto 0 auto;
+}
+
+div#right div#space{
+  height: 20%;
+}
+
+div#right div#description {
+  position: relative;
+  padding-top: 25px;
+  background-color: #ddd;
+  margin-top: 10%;
+  height: 330px;
+  width: 100%;
+}
+
+div#right div#description div.textWrapper {
+  background-color: #FFF;
+  display: block;
+  height: 270px;
+  margin: 0 auto 50px auto;
+  padding: 20px;
+  width: 92%;
+  font-family: 'Open Sans', sans-serif;
+  box-shadow: 5px 5px 5px #888888;
+}
+
+div#right div#description div.textWrapper .title {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+* html .clearfix {
+    height: 1%;
 }

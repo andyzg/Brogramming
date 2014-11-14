@@ -23,13 +23,14 @@ html(lang="en")
     script(src='js/controller.js')
     script(src='js/editor.js')
     script(src='js/script.js')
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,700', rel='stylesheet', type='text/css')
     link(rel='stylesheet', type='text/css', href='lib/bootstrap/bootstrap.min.css')
     link(rel='stylesheet', type='text/css', href='css/reset.css')
     link(rel='stylesheet', href='https://cdn.firebase.com/libs/firepad/1.1.0/firepad.css')
     link(rel='stylesheet', type='text/css', href='css/editor.css')
     link(rel='stylesheet', type='text/css', href='css/game.css')
   body
-    div#box
+    div#box.clearfix
       div#left
         div.cd-tabs.is-ended
           nav
@@ -56,3 +57,8 @@ html(lang="en")
       div#right
         div#mapContainer
           div#map
+        div#description
+          div.textWrapper
+            div.title
+            div.description
+

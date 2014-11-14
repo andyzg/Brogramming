@@ -20,14 +20,14 @@
   };
 
   Controller.prototype.reset = function(data, callback) {
-    console.log("Done ajax");
     this.id = data.id;
     this.title = data.title;
     this.description = data.description;
+    $("#description .title").text(this.title);
+    $("#description .description").text(this.description);
     this.objects = data.objects;
     this.goal = data.goal;
 
-    console.log("Done ajax request");
     var obj = parseMap(data.map);
     this.map = new Map(obj.map, data.width, data.height);
     this.switches = obj.switches;

@@ -1,7 +1,7 @@
 var Renderer = function(dom, width, height) {
   // Define rendering objects
   this.renderer = PIXI.autoDetectRecommendedRenderer(400, 320);
-  this.stage = new PIXI.Stage(0xFFFFFF);
+  this.stage = new PIXI.Stage(0x232C31);
   this.tileContainer = new PIXI.DisplayObjectContainer();
   this.stage.addChild(this.tileContainer);
 
