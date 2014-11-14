@@ -20,8 +20,9 @@ $(document).ready(function() {
     }
   });
 
+  $("#myModal").modal("hide");
   $("#documentation").click(function() {
-    $("#myModal").modal("hide");
+    $("#myModal").modal("show");
   });
   console.log("Document has loaded");
   var id = getParameterByName("id");
