@@ -8,13 +8,13 @@
     "1WW 2",
     " XW  ",
     "  X  ",
-    "  fxR",
-    "B   x"
+    "  fxB",
+    "R   x"
   ],
   "description": "Welcome to Brogramming. In this first level, both you and your partner will need to move your character down 4 steps",
   "objects": [],
   "goal": {
     "1": [4,0],
-    "2": [0,4]
+    "2": [3,4]
   }
 }
