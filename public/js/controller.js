@@ -42,7 +42,7 @@
     if (callback) {
       callback();
     }
-  }
+  };
 
   /**
    * To be called by the main JS, script.js
@@ -113,7 +113,7 @@
         }
       });
       worker.postMessage({type: 'begin', value: item});
-      worker.postMessage({type: 'next', conditionals: controller.getConditionals()})
+      worker.postMessage({type: 'next', conditionals: controller.getConditionals(i)})
       return worker;
     });
     setSpinner(true);
@@ -132,8 +132,8 @@
       return dfd.promise;
     }), controller.tick, setSpinner);
     setTimeout(function() {
-      _.each(controller.workers, function(worker) {
-        worker.postMessage({type: 'next', conditionals: controller.getConditionals()});
+      _.each(controller.workers, function(worker, i) {
+        worker.postMessage({type: 'next', conditionals: controller.getConditionals(i)});
       });
     }, 1000);
   };

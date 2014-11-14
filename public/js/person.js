@@ -93,12 +93,11 @@ Player.prototype.getCoordinateForward = function() {
 };
 
 Player.prototype.isValidLocation = function(location) {
-  if (location.row < 0 || location.row >= this.map.length || location.col < 0
-    || location.col >= this.map[0].length) {
+  if (location.row < 0 || location.row >= this.map.length || location.col < 0 ||
+    location.col >= this.map[0].length) {
     return false;
   }
   var locationType = this.getLocationValue(location);
-  console.log(location, locationType);
   return locationType == Tile.PATH || locationType == Tile.SWITCH;
 };
 
