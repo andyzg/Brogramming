@@ -22,8 +22,8 @@
   Controller.prototype.parseGoal = function (goal, player1, player2) {
     for (key in goal) {
       var location = {};
-      location['row'] = goal[key][0];
-      location['column'] = goal[key][1];
+      location['column'] = goal[key][0];
+      location['row'] = goal[key][1];
       if (key == "1") {
         player1.setGoal(location);
       } else if (key == "2") {
@@ -157,6 +157,10 @@
 
   Controller.prototype.tick = function(result1, result2) {
     var controller = this.controller;
+    if (controller.player1.isOnGoal() && controller.player2.isOnGoal()) {
+      onWin(controller.levelId, controller.numTicks);
+      return;
+    }
     controller.numTicks++;
     setStatementCount(controller.numTicks);
     console.log(result1, result2);
@@ -193,7 +197,8 @@
   Controller.prototype.getConditionals = function(playerId) {
     var player = playerId == 0 ? this.player1 : this.player2;
     return {
-      isBlocked: this.isBlocked(player)
+      isBlocked: this.isBlocked(player),
+      isOnGoal: player.isOnGoal()
     };
   };
 
