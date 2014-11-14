@@ -1,11 +1,11 @@
 {
   "map": [
-    "1 B    W",
-    "W   B W ",
-    " W bb   ",
-    "  Wbb BB",
-    "B       ",
-    "  B WWW2" ],
+    "1 X    W",
+    "W   X W ",
+    " W xx   ",
+    "  Wxx XX",
+    "X       ",
+    "  X WWW2" ],
   "description": "This is level is fairly straight forward except for a slight patch of fog in th middle of the map.",
   "title": "Medium Difficulty",
   "height": 6,
