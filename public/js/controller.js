@@ -93,6 +93,7 @@
   };
 
   Controller.prototype.run = function(code) {
+    console.log(code);
     this.stop();
     var controller = this;
     this.workerDfds = [Q.defer(), Q.defer()];
@@ -123,6 +124,7 @@
 
   Controller.prototype.tick = function(result1, result2) {
     var controller = this.controller;
+    console.log(result1, result2);
     controller.performActions(controller.functions[result1], controller.functions[result2]);
     controller.workerDfds = [Q.defer(), Q.defer()];
     Q.spread(_.map(controller.workerDfds, function(dfd) {

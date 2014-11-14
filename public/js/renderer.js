@@ -36,9 +36,6 @@ Renderer.prototype.initializeSwitches = function(switches) {
 }
 
 Renderer.prototype.render = function(player1, player2, switches, test) {
-  player1.render(this.tileSize);
-  player2.render(this.tileSize);
-
   if (test) {
     switches[0].setState(this.stage, true);
   }
