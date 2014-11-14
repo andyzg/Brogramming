@@ -35,12 +35,12 @@ Renderer.prototype.render = function(player1, player2) {
 Renderer.prototype.initializePlayer = function(player) {
   switch (player.getID()) {
     case "1":
-      player.initSprite(this.stage, this.playerTexture["1"]);
-      player.initAnimations(this.playerAnimations["1"]);
+      player.initSprite(this.stage, this.playerTexture["1"], this.tileSize);
+      player.initAnimations(this.stage, this.playerAnimations["1"]);
       break;
     case "2":
-      player.initSprite(this.stage, this.playerTexture["2"]);
-      player.initAnimations(this.playerAnimations["2"]);
+      player.initSprite(this.stage, this.playerTexture["2"], this.tileSize);
+      player.initAnimations(this.stage, this.playerAnimations["2"]);
       break;
     default:
       console.log("ERROR: Unknown player name.");
