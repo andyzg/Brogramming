@@ -15,7 +15,7 @@ app.use(express.static(__dirname + '/levels'));
 
 app.get('/', function(req, res) {
   console.log("Requesting from /");
-  res.render('index');
+  res.sendfile(__dirname + '/public/views/index.html');
 });
 
 app.get('/levels', function(req, res) {
