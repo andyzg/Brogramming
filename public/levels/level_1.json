@@ -3,7 +3,14 @@
   "title": "Learn the basics",
   "width": 5,
   "height": 5,
+  "map": [
+    "1   2",
+    "     ",
+    "     ",
+    "     ",
+    "     "
+  ],
   "description": "Welcome to Brogramming. In this first level, both you and your partner will need to move your character down 4 steps",
   "objects": [],
-  "goal": "TODO: give the coordinates to be checked for the level to be complete",
+  "goal": "TODO: give the coordinates to be checked for the level to be complete"
 }
