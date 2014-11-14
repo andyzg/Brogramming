@@ -112,20 +112,17 @@ Player.prototype.animate = function() {
       position.x = this.xPos - this.counter;
       break;
     case Direction.BOTTOM:
-      console.log(position.y);
       position.y = this.yPos - this.counter;
-      console.log(position.y);
       break;
     case Direction.LEFT:
       position.x = this.xPos + this.counter;
       break;
   }
-  console.log(this.counter, this.direction == Direction.BOTTOM);
-  console.log(this.anim[this.direction].position, this.xPos, this.yPos);
 
   if (this.counter < 0) {
     this.counter = this.size;
     this.isAnimating = false;
+    this.resetLocation();
     return false;
   } else {
     return true;
