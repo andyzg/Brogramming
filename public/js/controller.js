@@ -13,34 +13,36 @@
 
     console.log("Just finished creating renderer");
     $.get(path, function(data) {
-      console.log("Done ajax");
-      this.id = data.id;
-      this.title = data.title;
-      this.description = data.description;
-      this.objects = data.objects;
-      this.goal = data.goal;
-
-      console.log("Done ajax request");
-      var obj = parseMap(data.map);
-      this.map = new Map(obj.map, data.width, data.height);
-      this.switches = obj.switches;
-      this.player1 = obj.players["1"];
-      this.player2 = obj.players["2"];
-
-      this.renderer.initializeTiles(this.map);
-      this.renderer.initializeSwitches(this.switches);
-      this.renderer.initializePlayer(this.player1);
-      this.renderer.initializePlayer(this.player2);
-      console.log(this.map);
-      console.log(this.player1);
-      console.log(this.player2);
-      console.log(this.switches);
-
-      callback();
-
-      window.initEditor(this);
+      this.data = data;
+      this.reset(data, callback);
     }.bind(this));
+    window.initEditor(this);
   };
+
+  Controller.prototype.reset = function(data, callback) {
+    console.log("Done ajax");
+    this.id = data.id;
+    this.title = data.title;
+    this.description = data.description;
+    this.objects = data.objects;
+    this.goal = data.goal;
+
+    console.log("Done ajax request");
+    var obj = parseMap(data.map);
+    this.map = new Map(obj.map, data.width, data.height);
+    this.switches = obj.switches;
+    this.player1 = obj.players["1"];
+    this.player2 = obj.players["2"];
+
+    this.renderer.initializeTiles(this.map);
+    this.renderer.initializeSwitches(this.switches);
+    this.renderer.initializePlayer(this.player1);
+    this.renderer.initializePlayer(this.player2);
+
+    if (callback) {
+      callback();
+    }
+  }
 
   /**
    * To be called by the main JS, script.js
@@ -135,10 +137,10 @@
 
   Controller.prototype.stop = function() {
     _.each(this.workers, function(worker) {
-      console.log('terminate');
       worker.terminate();
     });
     this.workers = [];
+    this.reset(this.data);
   };
 
   Controller.prototype.functions = {
