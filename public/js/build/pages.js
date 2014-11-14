@@ -63,9 +63,12 @@ var Level = React.createClass({displayName: 'Level',
       backgroundColor: color,
     };
 
+    var url = "/game?id=" + this.state.id;
     return (
       React.createElement("div", {className: "level", style: style}, 
-        React.createElement("span", null, "Level ", this.props.id)
+        React.createElement("a", {href: url}, 
+          React.createElement("span", null, "Level ", this.props.id)
+        )
       )
     );
   }
