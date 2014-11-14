@@ -2,13 +2,15 @@ doctype html
 html(lang="en")
   head
     title= pageTitle
+    script(type='text/javascript' src='js/facebook-login.js')
 
-    script(type='text/javascript').
-      if (foo) {
-         bar(1 + 5)
-      }
   body
+    #fb-root
     h1 Brogramming
+    #my-account
+      div(class="authenticated", style="display: none")
+
+
     #container.col
       if youAreUsingJade
         p You are amazing
@@ -21,3 +23,5 @@ html(lang="en")
         and powerful features.
 
     script(type='text/javascript' src='/lib/jquery.facebook.js')
+    script(type='type/javascript' src='lib/jquery.min.js')
+    script(type='type/javascript' src='lib/FeatureLoader.js.php')
