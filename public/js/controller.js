@@ -31,10 +31,11 @@ var Controller = function(id) {
     console.log(this.player1);
     console.log(this.player2);
 
+    window.initEditor(this);
     // Make sure the Ajax call is done as well as loading the assets
     this.onLoaded();
   }.bind(this));
-}
+};
 
 /**
  * To be called by the main JS, script.js
@@ -46,13 +47,13 @@ Controller.prototype.render = function() {
     this.hasInitialized = true;
   }
   this.renderer.render(this.player1, this.player2);
-}
+};
 
 Controller.prototype.animate = function() {
   this.renderer.animate(this.player1, this.player2);
-}
+};
 
-Controller.prototype.run = function(f1, f2) {
+Controller.prototype.tick = function(f1, f2) {
   var b1 = true;
   var b2 = true;
   var anim1;
@@ -82,4 +83,30 @@ Controller.prototype.run = function(f1, f2) {
   };
   anim.apply(this);
   this.renderer.render(this.player1, this.player2);
+};
+
+Controller.prototype.run = function(code) {
+  _.each(code, function(item, i) {
+    var worker = new Worker('js/userCodeWorker.js');
+    var id = '#console' + i;
+    worker.addEventListener("message", function(e) {
+      console.log(e);
+      if (e.data.type === 'log') {
+        logResult(e.data.value, id);
+      } else if (e.data.type === 'action') {
+        if (!e.data.value.done) {
+          logResult(e.data.value.value, id);
+          setTimeout(function() {
+            worker.postMessage({type: 'next'});
+          }, 1000);
+        }
+      }
+    });
+    worker.postMessage({type: 'begin', value: item});
+    worker.postMessage({type: 'next'});
+  });
+};
+
+function logResult(message, id) {
+  $(id).val($(id).val() + message + '\n');
 }

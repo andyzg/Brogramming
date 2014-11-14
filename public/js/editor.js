@@ -3,8 +3,10 @@
   var commandsRef;
   var firepads = [];
   var lastCommand;
+  var controller;
 
-  function init() {
+  function init(ctrl) {
+    controller = ctrl;
     // Initialize Firebase.
     var refs = getRandomRef();
 
@@ -65,41 +67,18 @@
     if (commandType === 'run') {
       run();
     } else if (commandType === 'stop') {
-
+      controller.stop();
     }
-  }
+  };
 
   function run() {
-    //var sandbox = document.getElementById('sandbox');
-    //sandbox.contentWindow.postMessage(code, '*');
-    for (var i = 0; i < firepads.length; i++) {
-      (function(i) { // Closure so that right i value is used
-        var worker = new Worker('js/userCodeWorker.js');
-        var code = firepads[i].getText();
-        var id = 'console' + i;
-        worker.addEventListener("message", function(e) {
-        if (e.data.type === 'log') {
-          logResult(e.data.value, id);
-        } else if (e.data.type === 'action') {
-          if (!e.data.value.done) {
-            logResult(e.data.value.value, id);
-            setTimeout(function() {
-              worker.postMessage({type: 'next'});
-            }, 1000);
-          }
-        }
-      });
-      worker.postMessage({type: 'begin', value: code});
-      worker.postMessage({type: 'next'});
-      }) (i);
-    }
+    var code = _.map(firepads, function(pad) {
+      return pad.getText();
+    });
+
+    controller.run(code, logResult);
   }
 
-  function logResult(message, id) {
-    var textArea = document.getElementById(id);
-    textArea.value += message + '\n';
-  }
-
-  window.onload = init; // TODO change
+  window.initEditor = init;
 
 })();
