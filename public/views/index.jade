@@ -1,30 +1,20 @@
-extends layout
-
-block content
-  header.intro
-    .container
-      .row
-        .col-md-8.col-md-offset-2
-          h1.brand-heading brogrammer.
-          p.intro-text
-            | It's better programming with friends.
-            br
-            | Created by Start Bootstrap.
-          a.btn.btn-circle.page-scroll(href='#link-to-here')
-            i.fa.fa-angle-double-down.animated
-
-  footer
-    .container.text-center
-      p Copyright © Your Website 2014
-  //
-     jQuery
-  script(src='/lib/jquery.min.js')
-  //
-     Bootstrap Core JavaScript
-  script(src='/lib/bootstrap/bootstrap.min.js')
-  //
-     Plugin JavaScript
-  script(src='/lib/bootstrap/jquery.easing.min.js')
-  //
-     Custom Theme JavaScript
-  script(src='/lib/bootstrap/grayscale.js')
+doctype html
+html(lang="en")
+  head
+    title= pageTitle
+    script(type='text/javascript').
+      if (foo) {
+         bar(1 + 5)
+      }
+  body
+    h1 Brogramming
+    #container.col
+      if youAreUsingJade
+        p You are amazing
+      else
+        p Get on it!
+      p.
+        Jade is a terse and simple
+        templating language with a
+        strong focus on performance
+        and powerful features.
