@@ -116,10 +116,11 @@
       worker.postMessage({type: 'next', conditionals: controller.getConditionals()})
       return worker;
     });
+    setSpinner(true);
 
     Q.spread(_.map(this.workerDfds, function(dfd) {
       return dfd.promise;
-    }), this.tick);
+    }), this.tick, setSpinner);
   };
 
   Controller.prototype.tick = function(result1, result2) {
@@ -129,7 +130,7 @@
     controller.workerDfds = [Q.defer(), Q.defer()];
     Q.spread(_.map(controller.workerDfds, function(dfd) {
       return dfd.promise;
-    }), controller.tick);
+    }), controller.tick, setSpinner);
     setTimeout(function() {
       _.each(controller.workers, function(worker) {
         worker.postMessage({type: 'next', conditionals: controller.getConditionals()});
@@ -143,6 +144,7 @@
     });
     this.workers = [];
     this.reset(this.data);
+    setSpinner(false);
   };
 
   Controller.prototype.isBlocked = function(player) {
@@ -161,6 +163,10 @@
     turnLeft: Player.prototype.turnLeft,
     turnRight: Player.prototype.turnRight
   };
+
+  function setSpinner(visible) {
+    $('#executing').css('visibility', visible ? 'visible' : 'hidden');
+  }
 
   function logResult(message, id) {
     $(id).val($(id).val() + message + '\n');

@@ -46,12 +46,13 @@ html(lang="en")
             div#pad1
             textarea#console1.console(readonly)
         div.buttons
-          button#documentation.btn-primary.btn-sm(type='button')
+          button#documentation.btn-primary.btn-sm.left(type='button')
             | Documentation
-          button#evaluate.btn-primary.btn-sm(type='button')
+          button#evaluate.btn-primary.btn-sm.right(type='button')
             | Run
-          button#stop.btn-primary.btn-sm(type='button')
+          button#stop.btn-primary.btn-sm.right(type='button')
             | Stop
+          img#executing.spinner.right(src='img/ajax-loader.gif')
       div#right
         div#mapContainer
           div#map
