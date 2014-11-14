@@ -13,7 +13,7 @@
     for (var i = 0; i < refs.length; i++) {
       // Create ACE
       var editor = ace.edit("pad" + i);
-      editor.setTheme("ace/theme/textmate");
+      editor.setTheme("ace/theme/monokai");
       var session = editor.getSession();
       session.setUseWrapMode(true);
       session.setUseWorker(false);

@@ -31,6 +31,14 @@
     var obj = parseMap(data.map);
     this.map = new Map(obj.map, data.width, data.height);
     this.switches = obj.switches;
+
+    if (this.player1) {
+      this.player1.removeSelf();
+    }
+    if (this.player2) {
+      this.player2.removeSelf();
+    }
+
     this.player1 = obj.players["1"];
     this.player2 = obj.players["2"];
 
@@ -93,8 +101,8 @@
   };
 
   Controller.prototype.run = function(code) {
-    console.log(code);
     this.stop();
+    this.reset(this.data);
     var controller = this;
     this.workerDfds = [Q.defer(), Q.defer()];
     this.workers = _.map(code, function(item, i) {
@@ -149,7 +157,6 @@
       worker.terminate();
     });
     this.workers = [];
-    this.reset(this.data);
     setSpinner(false);
   };
 
