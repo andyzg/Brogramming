@@ -27,6 +27,7 @@ Renderer.prototype.initializeTiles = function(map) {
 }
 
 Renderer.prototype.render = function(player1, player2) {
+  console.log("Rendering");
   player1.render(this.tileSize);
   player2.render(this.tileSize);
   this.renderer.render(this.stage);
@@ -35,11 +36,11 @@ Renderer.prototype.render = function(player1, player2) {
 Renderer.prototype.initializePlayer = function(player) {
   switch (player.getID()) {
     case "1":
-      player.initSprite(this.stage, this.playerTexture["1"], this.tileSize);
+      player.initSprite(this.playerTexture["1"], this.tileSize);
       player.initAnimations(this.stage, this.playerAnimations["1"]);
       break;
     case "2":
-      player.initSprite(this.stage, this.playerTexture["2"], this.tileSize);
+      player.initSprite(this.playerTexture["2"], this.tileSize);
       player.initAnimations(this.stage, this.playerAnimations["2"]);
       break;
     default:
@@ -49,7 +50,6 @@ Renderer.prototype.initializePlayer = function(player) {
 
 Renderer.prototype.animate = function(player1, player2) {
   player1.animate();
-  player2.animate();
   this.renderer.render(this.stage);
 }
 
