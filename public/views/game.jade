@@ -29,28 +29,29 @@ html(lang="en")
     link(rel='stylesheet', type='text/css', href='css/editor.css')
     link(rel='stylesheet', type='text/css', href='css/game.css')
   body
-    div#left
-      div.cd-tabs.is-ended
-        nav
-          ul.cd-tabs-navigation
-            li
-              a.selected(href="#", data-content="Player 1") Player 1
-            li
-              a(href="#", data-content="Player 2") Player 2
-      div.cd-tabs-content
-        li.selected(data-content="Player 1")
-          div#pad0
-          textarea#console0.console(readonly)
-        li(data-content="Player 2")
-          div#pad1
-          textarea#console1.console(readonly)
-      div.buttons
-        button#documentation.btn-primary.btn-sm(type='button')
-          | Documentation
-        button#evaluate.btn-primary.btn-sm(type='button')
-          | Run
-        button#stop.btn-primary.btn-sm(type='button')
-          | Stop
-    div#right
-      div#mapContainer
-        div#map
+    div#box
+      div#left
+        div.cd-tabs.is-ended
+          nav
+            ul.cd-tabs-navigation
+              li
+                a.selected(href="#", data-content="Player 1") Player 1
+              li
+                a(href="#", data-content="Player 2") Player 2
+        div.cd-tabs-content
+          li.selected(data-content="Player 1")
+            div#pad0
+            textarea#console0.console(readonly)
+          li(data-content="Player 2")
+            div#pad1
+            textarea#console1.console(readonly)
+        div.buttons
+          button#documentation.btn-primary.btn-sm(type='button')
+            | Documentation
+          button#evaluate.btn-primary.btn-sm(type='button')
+            | Run
+          button#stop.btn-primary.btn-sm(type='button')
+            | Stop
+      div#right
+        div#mapContainer
+          div#map

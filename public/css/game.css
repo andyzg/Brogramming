@@ -1,3 +1,19 @@
+body {
+  height: 100%;
+  width: 100%;
+}
+
+body div#box {
+  display: block;
+  height: 100%;
+  min-width: 1200px;
+  width: 1200px;
+}
+
+body div#left {
+  display: block;
+}
+
 body div#left {
   background-color: #F0F0F0;
   width: 622px;
@@ -83,9 +99,10 @@ div#left div.buttons button#stop {
 }
 
 div#right {
-  width: 800px;
-  min-width: 800px;
+  display: block;
   float: right;
+  margin: 0 auto 0 auto;
+  min-width: 500px;
 }
 
 div#right div#mapContainer {
@@ -94,6 +111,6 @@ div#right div#mapContainer {
 
 div#right div#map {
   display: block;
-  margin: 200px; auto 0 auto;
+  margin: 50px; auto 0 auto;
   width: 400px;
 }
