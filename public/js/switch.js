@@ -9,6 +9,7 @@ Switch.prototype.initSprite = function(stage, images, size) {
   this.size = size;
   this.images = images;
   this.sprite = new PIXI.Sprite(images[this.active]);
+  stage.addChild(this.sprite);
 }
 
 Switch.prototype.getID = function() {

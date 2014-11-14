@@ -40,6 +40,7 @@ Renderer.prototype.render = function(player1, player2, switches) {
   player1.render(this.tileSize);
   player2.render(this.tileSize);
   for (var i = 0; i < switches.length; i++) {
+    console.log("Rendering switch");
     switches[i].render();
   }
 
@@ -68,8 +69,8 @@ Renderer.prototype.animate = function(player1, player2) {
 
 function loadSwitchImages() {
   var assets = {};
-  assets[Switch.ON] = PIXI.Texture.fromImage("/img/switch/on.png");
-  assets[Switch.OFF] = PIXI.Texture.fromImage("/img/switch/off.png");
+  assets[Switch.ON] = PIXI.Texture.fromImage("/img/switch/on-no-background.png");
+  assets[Switch.OFF] = PIXI.Texture.fromImage("/img/switch/off-no-background.png");
   return assets;
 }
 
@@ -126,4 +127,3 @@ function loadTileImages() {
   assets[Tile.WATER] = PIXI.Texture.fromImage("/img/tiles/water.png");
   return assets;
 }
-
