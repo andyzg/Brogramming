@@ -46,3 +46,7 @@ Controller.prototype.render = function() {
   }
   this.renderer.render(this.player1, this.player2);
 }
+
+Controller.prototype.animate = function() {
+  this.renderer.animate(this.player1, this.player2);
+}

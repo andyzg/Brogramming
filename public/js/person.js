@@ -66,6 +66,7 @@ Player.prototype.moveForward = function() {
 }
 
 Player.prototype.animate = function() {
+  console.log(this.anim[this.direction].currentFrame);
   this.counter = this.counter + 2;
   var position = this.anim[this.direction].position;
   switch (this.direction) {

@@ -8,3 +8,8 @@ $(document).ready(function() {
     controller.render();
   }
 });
+
+function animate() {
+  window.controller.animate();
+  requestAnimFrame(animate);
+}

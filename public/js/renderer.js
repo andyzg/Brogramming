@@ -47,6 +47,12 @@ Renderer.prototype.initializePlayer = function(player) {
   }
 }
 
+Renderer.prototype.animate = function(player1, player2) {
+  player1.animate();
+  player2.animate();
+  this.renderer.render(this.stage);
+}
+
 function loadPlayerImages() {
   var p1 = {};
   var p2 = {};
